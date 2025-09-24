@@ -1,0 +1,122 @@
+{
+  "resourceType": "Organization",
+  "id": "example-hospital",
+  "identifier": [
+    {
+      "use": "official",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "NPI",
+            "display": "National Provider Identifier"
+          }
+        ]
+      },
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "1234567890"
+    },
+    {
+      "use": "official",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "TAX",
+            "display": "Tax ID number"
+          }
+        ]
+      },
+      "system": "urn:oid:2.16.840.1.113883.4.4",
+      "value": "12-3456789"
+    }
+  ],
+  "active": true,
+  "type": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+          "code": "prov",
+          "display": "Healthcare Provider"
+        }
+      ]
+    },
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "22232009",
+          "display": "Hospital"
+        }
+      ]
+    }
+  ],
+  "name": "General Hospital",
+  "alias": [
+    "GH",
+    "General Medical Center"
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "555-123-4567",
+      "use": "work"
+    },
+    {
+      "system": "fax",
+      "value": "555-123-4568",
+      "use": "work"
+    },
+    {
+      "system": "email",
+      "value": "info@generalhospital.example.org",
+      "use": "work"
+    },
+    {
+      "system": "url",
+      "value": "https://www.generalhospital.example.org",
+      "use": "work"
+    }
+  ],
+  "address": [
+    {
+      "use": "work",
+      "type": "both",
+      "line": ["123 Hospital Drive"],
+      "city": "Medical City",
+      "state": "CA",
+      "postalCode": "90210",
+      "country": "US"
+    }
+  ],
+  "contact": [
+    {
+      "purpose": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+            "code": "ADMIN",
+            "display": "Administrative"
+          }
+        ]
+      },
+      "name": {
+        "family": "Administrator",
+        "given": ["Hospital"]
+      },
+      "telecom": [
+        {
+          "system": "phone",
+          "value": "555-123-4567",
+          "use": "work"
+        },
+        {
+          "system": "email",
+          "value": "admin@generalhospital.example.org",
+          "use": "work"
+        }
+      ]
+    }
+  ]
+}
