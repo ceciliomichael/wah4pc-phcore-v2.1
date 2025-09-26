@@ -24,7 +24,7 @@ services:
           memory: 512M
     # Production healthcheck with shorter intervals
     healthcheck:
-      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:6789/docs')"]
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://https://wah4pc-validation.echosphere.cfd/docs')"]
       interval: 15s
       timeout: 5s
       retries: 3

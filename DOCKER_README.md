@@ -22,9 +22,9 @@ This guide explains how to containerize and deploy the FHIR Validation Server us
    ```
 
 3. **Access the application:**
-   - Web Interface: http://localhost:6789
-   - API Documentation: http://localhost:6789/docs
-   - Health Check: http://localhost:6789/docs
+   - Web Interface: http://https://wah4pc-validation.echosphere.cfd
+   - API Documentation: http://https://wah4pc-validation.echosphere.cfd/docs
+   - Health Check: http://https://wah4pc-validation.echosphere.cfd/docs
 
 ### Production Environment
 

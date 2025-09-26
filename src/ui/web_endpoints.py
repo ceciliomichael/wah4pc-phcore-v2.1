@@ -577,7 +577,7 @@ class FHIRResourceBrowser:
         meta = resource.get("meta", {})
         profiles = meta.get("profile", [])
         for profile in profiles:
-            if "ph-core" in profile or "localhost:6789" in profile:
+            if "ph-core" in profile or "https://wah4pc-validation.echosphere.cfd" in profile:
                 is_ph_core = True
                 break
         
@@ -617,7 +617,7 @@ class FHIRResourceBrowser:
         meta = resource.get("meta", {})
         profiles = meta.get("profile", [])
         for profile in profiles:
-            if "ph-core" in profile or "localhost:6789" in profile:
+            if "ph-core" in profile or "https://wah4pc-validation.echosphere.cfd" in profile:
                 enhanced["profile_urls"].append(profile)
         
         # Identify PH Core specific features

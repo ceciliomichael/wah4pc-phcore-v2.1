@@ -37,7 +37,7 @@ EXPOSE 6789
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:6789/docs')" || exit 1
+    CMD python -c "import requests; requests.get('http://https://wah4pc-validation.echosphere.cfd/docs')" || exit 1
 
 # Run the application
 CMD ["python", "main.py"]
