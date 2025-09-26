@@ -56,6 +56,8 @@ class ValidationRequest(BaseModel):
     profile: Optional[str] = None
     validate_code_systems: bool = Field(default=True)
     validate_value_sets: bool = Field(default=True)
+    use_ph_core: bool = Field(default=True)
+    strict_ph_core: bool = Field(default=True)
 
 
 class ValidationResponse(BaseModel):

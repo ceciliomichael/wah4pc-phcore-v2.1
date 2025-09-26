@@ -5,3 +5,5 @@ jsonschema
 psutil
 python-multipart
 requests
+jinja2
+aiofiles

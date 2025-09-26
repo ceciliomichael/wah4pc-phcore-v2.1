@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex items-start justify-between">
+        <div class="flex-1">
+            <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                <a href="/" class="hover:text-blue-600 focus:outline-none">Home</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <a href="/resources/examples" class="hover:text-blue-600 focus:outline-none">
+                    Examples
+                </a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <span class="text-gray-900 font-medium">{{ resource_type|title }}</span>
+            </nav>
+            
+            <div class="flex items-center space-x-4 mb-4">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-blue-100">
+                    <i data-lucide="file-text" class="w-6 h-6 text-blue-600"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">
+                        {{ resource_type|title }} Examples
+                    </h1>
+                    <div class="flex items-center space-x-2 mt-1">
+                        <span class="inline-block bg-blue-100 text-blue-700 text-sm px-2 py-1 rounded">
+                            {{ resource_type|title }}
+                        </span>
+                        {% set total_examples = examples.valid|length + examples.invalid|length + examples.other|length %}
+                        <span class="inline-block bg-gray-100 text-gray-700 text-sm px-2 py-1 rounded">
+                            {{ total_examples }} Examples
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-gray-600 max-w-3xl">
+                Example {{ resource_type|title }} resources demonstrating proper FHIR structure, common validation errors, and best practices.
+            </p>
+        </div>
+    </div>
+
+    <!-- Valid Examples -->
+    {% if examples.valid %}
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-green-50 px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                    <h3 class="text-lg font-semibold text-gray-900">Valid Examples</h3>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        {{ examples.valid|length }} examples
+                    </span>
+                </div>
+                <p class="text-sm text-gray-600 mt-1">Examples demonstrating correct {{ resource_type|title }} resource structure</p>
+            </div>
+            
+            <div class="divide-y divide-gray-200">
+                {% for example_name in examples.valid %}
+                    {% set display_name = example_name.split('/')[-1] %}
+                    <div class="px-6 py-4 hover:bg-gray-50">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="file" class="w-4 h-4 text-green-600"></i>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-900">{{ display_name.replace('-', ' ').replace('_', ' ').title() }}</h4>
+                                    <p class="text-sm text-gray-500">{{ example_name }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Valid
+                                </span>
+                                <a href="/resources/examples/{{ example_name }}" 
+                                   class="inline-flex items-center px-3 py-1 border border-gray-300 rounded-md text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+                                    View Example
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Invalid Examples -->
+    {% if examples.invalid %}
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-red-50 px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <i data-lucide="alert-circle" class="w-5 h-5 text-red-600"></i>
+                    <h3 class="text-lg font-semibold text-gray-900">Invalid Examples</h3>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                        {{ examples.invalid|length }} examples
+                    </span>
+                </div>
+                <p class="text-sm text-gray-600 mt-1">Examples demonstrating common validation errors and what to avoid</p>
+            </div>
+            
+            <div class="divide-y divide-gray-200">
+                {% for example_name in examples.invalid %}
+                    {% set display_name = example_name.split('/')[-1] %}
+                    <div class="px-6 py-4 hover:bg-gray-50">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="file" class="w-4 h-4 text-red-600"></i>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-900">{{ display_name.replace('-', ' ').replace('_', ' ').title() }}</h4>
+                                    <p class="text-sm text-gray-500">{{ example_name }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                    Invalid
+                                </span>
+                                <a href="/resources/examples/{{ example_name }}" 
+                                   class="inline-flex items-center px-3 py-1 border border-gray-300 rounded-md text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+                                    View Example
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Other Examples -->
+    {% if examples.other %}
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <i data-lucide="file-text" class="w-5 h-5 text-gray-600"></i>
+                    <h3 class="text-lg font-semibold text-gray-900">Other Examples</h3>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                        {{ examples.other|length }} examples
+                    </span>
+                </div>
+                <p class="text-sm text-gray-600 mt-1">Additional {{ resource_type|title }} examples</p>
+            </div>
+            
+            <div class="divide-y divide-gray-200">
+                {% for example_name in examples.other %}
+                    <div class="px-6 py-4 hover:bg-gray-50">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="file" class="w-4 h-4 text-gray-600"></i>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-900">{{ example_name.replace('-', ' ').replace('_', ' ').title() }}</h4>
+                                    <p class="text-sm text-gray-500">{{ example_name }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                    Standard
+                                </span>
+                                <a href="/resources/examples/{{ example_name }}" 
+                                   class="inline-flex items-center px-3 py-1 border border-gray-300 rounded-md text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+                                    View Example
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Empty State Check -->
+    {% set total_examples = examples.valid|length + examples.invalid|length + examples.other|length %}
+    {% if total_examples == 0 %}
+        <div class="text-center py-12">
+            <div class="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="file-plus" class="w-12 h-12 text-gray-500"></i>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">No {{ resource_type|title }} Examples Yet</h3>
+                <p class="text-lg text-gray-600">
+                    Ready to add your first {{ resource_type|title }} example?
+                </p>
+            </div>
+            
+            <!-- Simplified Guide -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 max-w-2xl mx-auto mb-8">
+                <div class="text-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="folder-tree" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-blue-900">Quick Add</h4>
+                </div>
+                
+                <div class="space-y-4">
+                    <!-- Valid Example -->
+                    <div class="bg-white rounded-lg border border-green-200 p-4">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-green-600"></i>
+                            <span class="font-medium text-green-800">Valid Example</span>
+                        </div>
+                        <div class="bg-green-50 px-3 py-2 rounded text-sm font-mono">
+                            <div class="flex items-center space-x-2 text-green-800">
+                                <i data-lucide="folder" class="w-3 h-3"></i>
+                                <span>resources/examples/valid/{{ resource_type|title }}/</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-green-700 mt-1 ml-5">
+                                {% if resource_type|title == 'Patient' %}
+                                    <i data-lucide="user" class="w-3 h-3"></i>
+                                {% elif resource_type|title == 'Observation' %}
+                                    <i data-lucide="activity" class="w-3 h-3"></i>
+                                {% elif resource_type|title == 'Organization' %}
+                                    <i data-lucide="building" class="w-3 h-3"></i>
+                                {% elif resource_type|title == 'Practitioner' %}
+                                    <i data-lucide="stethoscope" class="w-3 h-3"></i>
+                                {% else %}
+                                    <i data-lucide="file-text" class="w-3 h-3"></i>
+                                {% endif %}
+                                <span>{{ resource_type.lower() }}-example.json</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Invalid Example -->
+                    <div class="bg-white rounded-lg border border-red-200 p-4">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <i data-lucide="alert-circle" class="w-4 h-4 text-red-600"></i>
+                            <span class="font-medium text-red-800">Invalid Example</span>
+                        </div>
+                        <div class="bg-red-50 px-3 py-2 rounded text-sm font-mono">
+                            <div class="flex items-center space-x-2 text-red-800">
+                                <i data-lucide="folder" class="w-3 h-3"></i>
+                                <span>resources/examples/invalid/{{ resource_type|title }}/</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-red-700 mt-1 ml-5">
+                                {% if resource_type|title == 'Patient' %}
+                                    <i data-lucide="user-x" class="w-3 h-3"></i>
+                                {% elif resource_type|title == 'Observation' %}
+                                    <i data-lucide="activity" class="w-3 h-3"></i>
+                                {% elif resource_type|title == 'Organization' %}
+                                    <i data-lucide="building" class="w-3 h-3"></i>
+                                {% elif resource_type|title == 'Practitioner' %}
+                                    <i data-lucide="stethoscope" class="w-3 h-3"></i>
+                                {% else %}
+                                    <i data-lucide="file-text" class="w-3 h-3"></i>
+                                {% endif %}
+                                <span>invalid-{{ resource_type.lower() }}.json</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="window.location.reload()" 
+                        class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                    <i data-lucide="refresh-cw" class="w-5 h-5 mr-2"></i>
+                    Check Again
+                </button>
+                <a href="/resources/examples" 
+                   class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>
+                    All Examples
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Implementation Notes -->
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <div class="flex items-start space-x-3">
+            <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0"></i>
+            <div>
+                <h3 class="text-sm font-medium text-yellow-900">Using {{ resource_type|title }} Examples</h3>
+                <ul class="text-sm text-yellow-700 mt-1 list-disc list-inside space-y-1">
+                    <li><strong>Valid Examples:</strong> Use these as templates for creating your own {{ resource_type|title }} resources</li>
+                    <li><strong>Invalid Examples:</strong> Study these to understand common validation errors and how to avoid them</li>
+                    <li>All examples follow FHIR R4 specification requirements</li>
+                    <li>Examples marked with PH Core compliance include Philippines-specific extensions and constraints</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

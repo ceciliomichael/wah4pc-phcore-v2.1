@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex items-start justify-between">
+        <div class="flex-1">
+            <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                <a href="/" class="hover:text-blue-600 focus:outline-none">Home</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <a href="/resources/{{ category }}" class="hover:text-blue-600 focus:outline-none">
+                    {{ category.replace('_', ' ').title() }}
+                </a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <span class="text-gray-900 font-medium">{{ resource_name }}</span>
+            </nav>
+            
+            <div class="flex items-center space-x-4 mb-4">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-purple-100">
+                    <i data-lucide="book-open" class="w-6 h-6 text-purple-600"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">
+                        {{ resource.title or resource.name }}
+                    </h1>
+                    <div class="flex items-center space-x-2 mt-1">
+                        <span class="inline-block bg-purple-100 text-purple-700 text-sm px-2 py-1 rounded">
+                            PH Core CodeSystem
+                        </span>
+                        <span class="inline-block bg-blue-100 text-blue-700 text-sm px-2 py-1 rounded">
+                            {{ resource.status|title }}
+                        </span>
+                        {% if resource.count %}
+                            <span class="inline-block bg-gray-100 text-gray-700 text-sm px-2 py-1 rounded">
+                                {{ resource.count }} Codes
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            {% if resource.description %}
+                <p class="text-gray-600 max-w-3xl">{{ resource.description }}</p>
+            {% endif %}
+            
+            <div class="mt-2 text-sm text-gray-500">
+                <strong>URL:</strong> <code class="text-xs bg-gray-100 px-2 py-1 rounded">{{ resource.url }}</code>
+            </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="flex items-center space-x-3">
+            <button onclick="copyToClipboard()" 
+                    class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+                <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
+                Copy JSON
+            </button>
+        </div>
+    </div>
+
+    <!-- Usage Note -->
+    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+        <div class="flex items-start space-x-3">
+            <i data-lucide="info" class="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0"></i>
+            <div>
+                <h3 class="text-sm font-medium text-purple-900">Philippine CodeSystem Usage</h3>
+                <p class="text-sm text-purple-700 mt-1">
+                    This CodeSystem defines codes specific to the Philippine healthcare context. 
+                    Use these codes in FHIR resources to ensure standardized representation of Philippine-specific concepts.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CodeSystem Properties -->
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">CodeSystem Properties</h3>
+        </div>
+        
+        <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Name</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ resource.name }}</dd>
+            </div>
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Status</dt>
+                <dd class="mt-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                        {% if resource.status == 'active' %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                        {{ resource.status|title }}
+                    </span>
+                </dd>
+            </div>
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Content</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ resource.content|title }}</dd>
+            </div>
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Case Sensitive</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                    {% if resource.caseSensitive %}
+                        <span class="text-green-600">Yes</span>
+                    {% else %}
+                        <span class="text-red-600">No</span>
+                    {% endif %}
+                </dd>
+            </div>
+            {% if resource.count %}
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Total Concepts</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ resource.count }}</dd>
+                </div>
+            {% endif %}
+            <div>
+                <dt class="text-sm font-medium text-gray-500">Usage Context</dt>
+                <dd class="mt-1 text-sm text-gray-900">{{ resource.usage_context }}</dd>
+            </div>
+        </div>
+    </div>
+
+    <!-- Concepts -->
+    {% if resource.concepts %}
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-purple-50 px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Defined Concepts</h3>
+                <p class="text-sm text-gray-600 mt-1">All codes defined in this CodeSystem</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Display</th>
+                            {% if resource.concepts|selectattr('definition')|list %}
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Definition</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for concept in resource.concepts %}
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <code class="text-sm font-mono text-purple-600 bg-purple-50 px-2 py-1 rounded">{{ concept.code }}</code>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{ concept.display or "-" }}</div>
+                                </td>
+                                {% if resource.concepts|selectattr('definition')|list %}
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-600">{{ concept.definition or "-" }}</div>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- JSON Content -->
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-900">JSON Representation</h3>
+                <div class="text-sm text-gray-500">
+                    PH Core CodeSystem
+                </div>
+            </div>
+        </div>
+        
+        <div class="relative">
+            <pre id="resource-content" class="bg-white p-6 text-sm font-mono overflow-x-hidden max-h-96 border-0 whitespace-pre-wrap break-words"><code class="json">{{ resource_json | safe }}</code></pre>
+            <div id="copy-notification" class="hidden absolute top-4 right-4 bg-green-100 text-green-800 px-3 py-2 rounded-lg text-sm">
+                <i data-lucide="check" class="w-4 h-4 inline mr-1"></i>
+                Copied to clipboard!
+            </div>
+        </div>
+    </div>
+
+    <!-- Implementation Notes -->
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <div class="flex items-start space-x-3">
+            <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0"></i>
+            <div>
+                <h3 class="text-sm font-medium text-yellow-900">Implementation Notes</h3>
+                <ul class="text-sm text-yellow-700 mt-1 list-disc list-inside space-y-1">
+                    <li>Use the CodeSystem URL as the system value when referencing these codes in FHIR resources</li>
+                    <li>Ensure code values match exactly (case sensitivity: {{ "enabled" if resource.caseSensitive else "disabled" }})</li>
+                    <li>This CodeSystem is specific to the Philippine healthcare context</li>
+                    <li>Codes may be used in ValueSets to create reusable sets of values for specific use cases</li>
+                    <li>Always validate codes against this CodeSystem when implementing PH Core profiles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyToClipboard() {
+        const content = document.getElementById('resource-content').textContent;
+        navigator.clipboard.writeText(content).then(() => {
+            const notification = document.getElementById('copy-notification');
+            notification.classList.remove('hidden');
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 2000);
+        });
+    }
+</script>
+{% endblock %}

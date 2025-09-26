@@ -9,18 +9,28 @@ import sys
 import json
 import requests
 
-# The URL of the local validation server
-VALIDATION_URL = "http://localhost:8000/api/v1/validate"
+# The URL of the local validation server (PH-Core STRICT validation)
+VALIDATION_URL = "http://localhost:6789/api/v1/validate/ph-core"
+STANDARD_VALIDATION_URL = "http://localhost:6789/api/v1/validate"
 
 
-def validate_fhir_resource(file_path: str):
+def validate_fhir_resource(file_path: str, use_ph_core: bool = True):
     """
     Reads a FHIR resource from a file and sends it to the validation server.
 
     Args:
         file_path (str): The path to the JSON file containing the FHIR resource.
+        use_ph_core (bool): Whether to use PH-Core strict validation (default: True)
     """
-    print(f"▶️  Validating resource from: {file_path}")
+    if use_ph_core:
+        print(f"▶️  PH-CORE STRICT VALIDATION for: {file_path}")
+        print("⚠️  This validates against BOTH FHIR R4 AND PH-Core Implementation Guide")
+        print("   Resources MUST comply with PH-Core requirements or validation will FAIL")
+        validation_url = VALIDATION_URL
+    else:
+        print(f"▶️  STANDARD FHIR VALIDATION for: {file_path}")
+        print("ℹ️  This validates against FHIR R4 specification only (no PH-Core requirements)")
+        validation_url = STANDARD_VALIDATION_URL
 
     # 1. Read and parse the JSON file
     try:
@@ -36,7 +46,7 @@ def validate_fhir_resource(file_path: str):
         print(f"❌ Error: An unexpected error occurred while reading the file: {e}")
         return
 
-    # 2. Construct the request payload
+    # 2. Construct the request payload (PH-Core endpoint doesn't need these flags)
     payload = {
         "resource": resource_data,
         "validate_code_systems": True,
@@ -45,8 +55,8 @@ def validate_fhir_resource(file_path: str):
 
     # 3. Send the POST request to the server
     try:
-        print(f"▶️  Sending request to: {VALIDATION_URL}")
-        response = requests.post(VALIDATION_URL, json=payload, timeout=30)
+        print(f"▶️  Sending request to: {validation_url}")
+        response = requests.post(validation_url, json=payload, timeout=30)
         response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
 
     except requests.exceptions.ConnectionError:
@@ -78,9 +88,16 @@ def validate_fhir_resource(file_path: str):
 
 if __name__ == "__main__":
     # Check for the file path argument
-    if len(sys.argv) != 2:
-        print("Usage: python validator.py <path_to_fhir_resource.json>")
+    if len(sys.argv) < 2 or len(sys.argv) > 3:
+        print("Usage: python validator.py <path_to_fhir_resource.json> [--standard]")
+        print("  By default: PH-Core STRICT validation (FHIR + PH-Core compliance required)")
+        print("  With --standard: Standard FHIR validation only (no PH-Core requirements)")
         sys.exit(1)
 
     file_to_validate = sys.argv[1]
-    validate_fhir_resource(file_to_validate)
+    use_ph_core = True
+    
+    if len(sys.argv) == 3 and sys.argv[2] == "--standard":
+        use_ph_core = False
+    
+    validate_fhir_resource(file_to_validate, use_ph_core)

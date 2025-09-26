@@ -29,9 +29,9 @@ router = APIRouter()
 @router.post(
     "/validate",
     response_model=ValidationResponse,
-    summary="Validate FHIR Resource",
-    description="Validate a FHIR resource against base FHIR specification and optional profiles",
-    tags=["Validation"]
+    summary="Validate FHIR Resource (Standard FHIR Only)",
+    description="Validate a FHIR resource against base FHIR R4 specification only (no PH-Core requirements)",
+    tags=["Standard FHIR Validation"]
 )
 async def validate_fhir_resource(
     request: ValidationRequest = Body(
@@ -54,9 +54,11 @@ async def validate_fhir_resource(
                         "gender": "male",
                         "birthDate": "1990-01-01"
                     },
-                    "profile": None,
+                    "profile": "http://localhost:6789/StructureDefinition/ph-core-patient",
                     "validate_code_systems": True,
-                    "validate_value_sets": True
+                    "validate_value_sets": True,
+                    "use_ph_core": True,
+                    "strict_ph_core": True
                 }
             }
         }
@@ -76,12 +78,14 @@ async def validate_fhir_resource(
     start_time = time.time()
     
     try:
-        # Validate the resource
+        # Validate the resource (STANDARD FHIR ONLY - no PH-Core)
         validation_result = fhir_validator.validate_resource(
             resource=request.resource,
             profile_url=request.profile,
             validate_code_systems=request.validate_code_systems,
-            validate_value_sets=request.validate_value_sets
+            validate_value_sets=request.validate_value_sets,
+            use_ph_core=False,  # STANDARD FHIR ONLY
+            strict_ph_core=False
         )
         
         processing_time = int((time.time() - start_time) * 1000)
@@ -101,11 +105,101 @@ async def validate_fhir_resource(
 
 
 @router.post(
+    "/validate/ph-core",
+    response_model=ValidationResponse,
+    summary="Validate FHIR Resource (PH-Core STRICT)",
+    description="Validate a FHIR resource against BOTH FHIR R4 AND PH-Core Implementation Guide (STRICT COMPLIANCE REQUIRED)",
+    tags=["PH-Core Validation"]
+)
+async def validate_ph_core_fhir_resource(
+    request: ValidationRequest = Body(
+        ...,
+        examples={
+            "ph_core_patient_example": {
+                "summary": "PH-Core Patient Example",
+                "description": "A Patient resource that must comply with PH-Core requirements",
+                "value": {
+                    "resource": {
+                        "resourceType": "Patient",
+                        "id": "ph-core-patient",
+                        "meta": {
+                            "profile": ["http://localhost:6789/StructureDefinition/ph-core-patient"]
+                        },
+                        "extension": [
+                            {
+                                "url": "http://localhost:6789/StructureDefinition/indigenous-people",
+                                "valueBoolean": False
+                            }
+                        ],
+                        "name": [
+                            {
+                                "use": "official",
+                                "family": "Dela Cruz",
+                                "given": ["Juan"]
+                            }
+                        ],
+                        "gender": "male",
+                        "birthDate": "1980-01-01"
+                    },
+                    "validate_code_systems": True,
+                    "validate_value_sets": True
+                }
+            }
+        }
+    )
+) -> ValidationResponse:
+    """Validate a FHIR resource with STRICT PH-Core compliance.
+    
+    This endpoint enforces BOTH:
+    1. FHIR R4 specification compliance
+    2. PH-Core Implementation Guide compliance
+    
+    Resources that do not meet PH-Core requirements will FAIL validation.
+    
+    Args:
+        request: Validation request containing the resource
+        
+    Returns:
+        Validation response with results
+        
+    Raises:
+        HTTPException: If validation fails due to server error
+    """
+    start_time = time.time()
+    
+    try:
+        # STRICT PH-Core validation - MUST comply with PH-Core IG
+        validation_result = fhir_validator.validate_resource(
+            resource=request.resource,
+            profile_url=request.profile,
+            validate_code_systems=request.validate_code_systems,
+            validate_value_sets=request.validate_value_sets,
+            use_ph_core=True,  # PH-CORE REQUIRED
+            strict_ph_core=True  # STRICT MODE - FAILURES ARE ERRORS
+        )
+        
+        processing_time = int((time.time() - start_time) * 1000)
+        
+        return ValidationResponse(
+            validation_result=validation_result,
+            processed_at=datetime.now().isoformat(),
+            processing_time_ms=processing_time
+        )
+        
+    except Exception as e:
+        logger.error(f"Error validating PH-Core resource: {e}")
+        raise HTTPException(
+            status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Internal server error during PH-Core validation: {str(e)}"
+        )
+
+
+@router.post(
     "/validate/batch",
     response_model=List[ValidationResponse],
-    summary="Validate Multiple FHIR Resources",
-    description="Validate multiple FHIR resources in a single request",
-    tags=["Validation"]
+    summary="Validate Multiple FHIR Resources (Standard FHIR Only)",
+    description="Validate multiple FHIR resources against FHIR R4 specification only (no PH-Core requirements)",
+    tags=["Standard FHIR Validation"]
 )
 async def validate_batch_resources(
     resources: List[ValidationRequest] = Body(
@@ -169,7 +263,9 @@ async def validate_batch_resources(
                 resource=request.resource,
                 profile_url=request.profile,
                 validate_code_systems=request.validate_code_systems,
-                validate_value_sets=request.validate_value_sets
+                validate_value_sets=request.validate_value_sets,
+                use_ph_core=False,  # Batch validation is standard FHIR only
+                strict_ph_core=False
             )
             
             processing_time = int((time.time() - start_time) * 1000)
@@ -276,7 +372,7 @@ async def get_server_info() -> ServerInfo:
         description=SERVER_DESCRIPTION,
         fhir_version="R4",
         supported_formats=[CONTENT_TYPE_FHIR_JSON, "application/json"],
-        supported_operations=["validate", "batch-validate", "resource-info"]
+        supported_operations=["validate-standard", "validate-ph-core", "batch-validate", "resource-info"]
     )
 
 

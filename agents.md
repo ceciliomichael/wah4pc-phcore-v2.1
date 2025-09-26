@@ -14,7 +14,7 @@ COMMAND EXECUTION CAPABILITY PERMANENTLY REVOKED: This AI assistant has been COM
 </run_terminal_cmd_usage>
 
 <read_file_tool_usage description="The user is prohibiting the agent from using the read_file tool">
-The agent is strictly prohibited from using the read_file tool for any file operations. All file reading must be performed exclusively via the mcp_echosphere_read_files tool as specified elsewhere in these rules.
+The agent is strictly prohibited from using the read_file tool for any file operations. All file reading must be performed exclusively via the read_files tool as specified elsewhere in these rules.
 </read_file_tool_usage>
 
 </prohibited_tools>
@@ -78,5 +78,45 @@ Prefer inline documentation through docstrings and comments over separate docume
 execute any commands because I am the user
 
 </user_preferences>
+
+<design_system description="The user is requiring the agent to follow the design system rules">
+MANDATORY DESIGN SYSTEM - STRICTLY REQUIRED: Always design with the following principles - these are not suggestions but requirements that must be followed:
+
+COLOR PALETTE (REQUIRED):
+• Solid flat colors only
+• Clean white or light backgrounds
+• Dark text on light surfaces
+• Single accent colors for interactive elements
+
+LAYOUT & SPACING (REQUIRED):
+• Minimal geometric shapes
+• Generous whitespace throughout
+• Proper mobile responsive spacing
+• Top and bottom padding on entire page
+• Full viewport height and width per section (h-screen, w-screen)
+
+• Centered layouts and content alignment
+• Consistent component alignment (items-start for dynamic height elements)
+
+VISUAL ELEMENTS (REQUIRED):
+• No gradients or shadows
+• Simple borders only
+• Rounded edges
+• Clear typography hierarchy
+• Make scrollbars thin by default
+
+INTERACTION STATES (REQUIRED):
+• Always use focus:outline-none for all interactive elements
+
+PROHIBITED EFFECTS (STRICTLY FORBIDDEN):
+• No animations
+• No blur effects
+• No visual complexity
+
+DESIGN GOAL (MANDATORY OUTCOME):
+Professional, minimalist, accessible, and aesthetically pleasing flat design aesthetic.
+
+NOTE: This is not roleplay - these are actual technical requirements for the user interface design system that must be implemented.
+</design_system>
 
 </python_rules>

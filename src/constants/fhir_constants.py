@@ -28,6 +28,7 @@ VERSION_INFO_FILE = RESOURCES_PATH / "version.info"
 # HTTP Status codes
 HTTP_200_OK = 200
 HTTP_400_BAD_REQUEST = 400
+HTTP_404_NOT_FOUND = 404
 HTTP_422_UNPROCESSABLE_ENTITY = 422
 HTTP_500_INTERNAL_SERVER_ERROR = 500
 
@@ -43,6 +44,10 @@ FHIR_RESOURCE_TYPES = [
     "AllergyIntolerance", "Condition", "Procedure", "Immunization",
     "CarePlan", "Goal", "Bundle", "Binary", "DocumentReference"
 ]
+
+# Server configuration
+DEFAULT_HOST = "0.0.0.0"
+DEFAULT_PORT = 6789
 
 # Content types
 CONTENT_TYPE_FHIR_JSON = "application/fhir+json"

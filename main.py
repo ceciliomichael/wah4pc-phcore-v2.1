@@ -6,10 +6,13 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 
 from src.ui.api_endpoints import router
+from src.ui.ig_endpoints import ig_router
+from src.ui.web_endpoints import web_router
 from src.constants.fhir_constants import (
-    SERVER_NAME, SERVER_VERSION, SERVER_DESCRIPTION
+    SERVER_NAME, SERVER_VERSION, SERVER_DESCRIPTION, DEFAULT_HOST, DEFAULT_PORT
 )
 
 # Configure logging
@@ -48,7 +51,7 @@ app = FastAPI(
     },
     servers=[
         {
-            "url": "http://localhost:8000",
+            "url": f"http://localhost:{DEFAULT_PORT}",
             "description": "Development server"
         }
     ]
@@ -66,10 +69,19 @@ app.add_middleware(
 # Include API routes
 app.include_router(router, prefix="/api/v1")
 
+# Include PH-Core IG hosting routes (no prefix - served at root for FHIR canonical URLs)
+app.include_router(ig_router)
 
-@app.get("/", include_in_schema=False)
-async def root():
-    """Redirect root to API documentation."""
+# Include web frontend routes
+app.include_router(web_router)
+
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+@app.get("/docs-api", include_in_schema=False)
+async def api_docs():
+    """Redirect to API documentation."""
     return RedirectResponse(url="/docs")
 
 
@@ -77,8 +89,8 @@ if __name__ == "__main__":
     # Development server configuration
     uvicorn.run(
         "main:app",
-        host="0.0.0.0",
-        port=8000,
+        host=DEFAULT_HOST,
+        port=DEFAULT_PORT,
         reload=True,
         log_level="info"
     )

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ title }}{% endblock %} - FHIR Resource Browser</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="alternate icon" href="/static/favicon.svg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+        
+        /* Code syntax highlighting */
+        .json-key { color: #0066cc; }
+        .json-string { color: #008000; }
+        .json-number { color: #ff6600; }
+        .json-boolean { color: #cc00cc; }
+        .json-null { color: #999999; }
+        
+        /* Prevent horizontal overflow */
+        * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* Ensure proper text wrapping */
+        pre, code {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="h-full bg-white text-gray-900 font-sans overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 px-4 md:px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
+            <div class="flex items-center space-x-4 min-w-0">
+                <a href="/" class="flex items-center space-x-2 text-xl font-semibold text-gray-900 hover:text-blue-600 focus:outline-none">
+                    <i data-lucide="activity" class="w-6 h-6 flex-shrink-0"></i>
+                    <span class="hidden sm:inline">FHIR Resource Browser</span>
+                    <span class="sm:hidden">FHIR</span>
+                </a>
+            </div>
+            
+            <div class="flex items-center space-x-2 md:space-x-6 flex-wrap">
+                <!-- Navigation Links -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <a href="/" class="text-gray-700 hover:text-blue-600 focus:outline-none text-sm">
+                        <i data-lucide="home" class="w-4 h-4 inline mr-1"></i>Home
+                    </a>
+                    <a href="/resources/fhir_base" class="text-gray-700 hover:text-blue-600 focus:outline-none text-sm">
+                        <i data-lucide="database" class="w-4 h-4 inline mr-1"></i>FHIR Base
+                    </a>
+                    <a href="/resources/ph_core" class="text-gray-700 hover:text-blue-600 focus:outline-none text-sm">
+                        <i data-lucide="map" class="w-4 h-4 inline mr-1"></i>PH Core
+                    </a>
+                    <a href="/resources/examples" class="text-gray-700 hover:text-blue-600 focus:outline-none text-sm">
+                        <i data-lucide="file-text" class="w-4 h-4 inline mr-1"></i>Examples
+                    </a>
+                </div>
+                
+                <!-- Search -->
+                <form action="/search" method="get" class="flex items-center">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            name="q" 
+                            placeholder="Search..." 
+                            value="{{ request.query_params.get('q', '') }}"
+                            class="w-48 md:w-64 px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                        >
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen w-full py-8 px-4 md:px-6 overflow-x-hidden">
+        <div class="max-w-7xl mx-auto">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-8 px-6">
+        <div class="max-w-7xl mx-auto text-center text-gray-600">
+            <p class="mb-2">FHIR Resource Browser - Universal FHIR Validation Tool</p>
+            <p class="text-sm">Built for developers following the FHIR R4 (4.0.1) standard</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // JSON syntax highlighting
+        function highlightJSON(json) {
+            return json
+                .replace(/("[\w\-_]+")\s*:/g, '<span class="json-key">$1</span>:')
+                .replace(/:\s*"([^"]+)"/g, ': <span class="json-string">"$1"</span>')
+                .replace(/:\s*(\d+(?:\.\d+)?)/g, ': <span class="json-number">$1</span>')
+                .replace(/:\s*(true|false)/g, ': <span class="json-boolean">$1</span>')
+                .replace(/:\s*(null)/g, ': <span class="json-null">$1</span>');
+        }
+        
+        // Apply JSON highlighting to code blocks
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                if (block.classList.contains('json')) {
+                    block.innerHTML = highlightJSON(block.innerHTML);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

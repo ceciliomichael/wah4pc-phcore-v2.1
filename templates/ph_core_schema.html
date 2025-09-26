@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex items-start justify-between">
+        <div class="flex-1">
+            <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                <a href="/" class="hover:text-blue-600 focus:outline-none">Home</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <a href="/resources/{{ category }}" class="hover:text-blue-600 focus:outline-none">
+                    {{ category.replace('_', ' ').title() }}
+                </a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <span class="text-gray-900 font-medium">{{ resource_name }}</span>
+            </nav>
+            
+            <div class="flex items-center space-x-4 mb-4">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-green-100">
+                    <i data-lucide="map" class="w-6 h-6 text-green-600"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">
+                        {{ resource.profileName or resource_name }}
+                    </h1>
+                    <div class="flex items-center space-x-2 mt-1">
+                        <span class="inline-block bg-green-100 text-green-700 text-sm px-2 py-1 rounded">
+                            PH Core Profile
+                        </span>
+                        <span class="inline-block bg-blue-100 text-blue-700 text-sm px-2 py-1 rounded">
+                            {{ resource.resourceType|title }}
+                        </span>
+                        <span class="inline-block bg-gray-100 text-gray-700 text-sm px-2 py-1 rounded">
+                            JSON Schema
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            {% if resource.description %}
+                <p class="text-gray-600 max-w-3xl">{{ resource.description }}</p>
+            {% endif %}
+            
+            {% if resource.baseDefinition %}
+                <div class="mt-2 text-sm text-gray-500">
+                    <strong>Based on:</strong> <code class="text-xs bg-gray-100 px-2 py-1 rounded">{{ resource.baseDefinition }}</code>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Actions -->
+        <div class="flex items-center space-x-3">
+            <button onclick="copyToClipboard()" 
+                    class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+                <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
+                Copy Schema
+            </button>
+        </div>
+    </div>
+
+    <!-- Usage Note -->
+    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+        <div class="flex items-start space-x-3">
+            <i data-lucide="info" class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"></i>
+            <div>
+                <h3 class="text-sm font-medium text-green-900">PH Core Profile Usage</h3>
+                <p class="text-sm text-green-700 mt-1">
+                    This profile extends the base <strong>{{ resource.resourceType|title }}</strong> FHIR resource with Philippines-specific requirements and extensions. 
+                    Use this as a reference when building forms or APIs that create/validate {{ resource.resourceType|title }} resources for the Philippine healthcare context.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PH Core Extensions -->
+    {% if resource.ph_core_extensions %}
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-green-50 px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">PH Core Extensions</h3>
+                <p class="text-sm text-gray-600 mt-1">Additional data elements specific to the Philippine healthcare context</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Extension</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cardinality</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Required</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profile</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for extension in resource.ph_core_extensions %}
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <code class="text-sm font-mono text-green-600">{{ extension.name }}</code>
+                                        {% if extension.required %}
+                                            <span class="ml-2 inline-block w-2 h-2 bg-red-400 rounded-full" title="Required"></span>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm text-gray-500">{{ extension.cardinality }}</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {% if extension.required %}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            Required
+                                        </span>
+                                    {% else %}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            Optional
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {% if extension.profile %}
+                                        <code class="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">{{ extension.profile.split('/')[-1] }}</code>
+                                    {% else %}
+                                        <span class="text-sm text-gray-400">-</span>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{ extension.description or "-" }}</div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- PH Core Constraints -->
+    {% if resource.ph_core_constraints %}
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-orange-50 px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">PH Core Constraints</h3>
+                <p class="text-sm text-gray-600 mt-1">Specific constraints and slicing rules for Philippine context</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Constraint</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cardinality</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Required</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for constraint in resource.ph_core_constraints %}
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <code class="text-sm font-mono text-orange-600">{{ constraint.name }}</code>
+                                        {% if constraint.required %}
+                                            <span class="ml-2 inline-block w-2 h-2 bg-red-400 rounded-full" title="Required"></span>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm font-mono text-gray-900">{{ constraint.type }}</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm text-gray-500">{{ constraint.cardinality }}</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {% if constraint.required %}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            Required
+                                        </span>
+                                    {% else %}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            Optional
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{ constraint.description or "-" }}</div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Properties Overview -->
+    {% if resource.properties %}
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Properties Overview</h3>
+                <p class="text-sm text-gray-600 mt-1">Base FHIR properties with PH Core modifications</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cardinality</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Required</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for prop_name, prop_info in resource.properties.items() %}
+                            <tr class="hover:bg-gray-50 {% if prop_info.ph_core_specific %}bg-green-25{% endif %}">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <code class="text-sm font-mono {% if prop_info.ph_core_specific %}text-green-600{% else %}text-blue-600{% endif %}">{{ prop_name }}</code>
+                                        {% if prop_info.required %}
+                                            <span class="ml-2 inline-block w-2 h-2 bg-red-400 rounded-full" title="Required"></span>
+                                        {% endif %}
+                                        {% if prop_info.ph_core_specific %}
+                                            <span class="ml-2 inline-block px-1.5 py-0.5 bg-green-100 text-green-700 text-xs rounded">PH Core</span>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm font-mono text-gray-900">{{ prop_info.type }}</span>
+                                    {% if prop_info.ph_core_profile %}
+                                        <div class="text-xs text-green-600 mt-1">
+                                            Profile: 
+                                            {% if prop_info.ph_core_profile is string %}
+                                                <code class="text-xs">{{ prop_info.ph_core_profile.split('/')[-1] }}</code>
+                                            {% elif prop_info.ph_core_profile is iterable %}
+                                                {% for profile in prop_info.ph_core_profile %}
+                                                    <code class="text-xs">{{ profile.split('/')[-1] }}</code>{% if not loop.last %}, {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <code class="text-xs">{{ prop_info.ph_core_profile }}</code>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm text-gray-500">{{ prop_info.cardinality }}</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {% if prop_info.required %}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            Required
+                                        </span>
+                                    {% else %}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            Optional
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{ prop_info.description }}</div>
+                                    {% if prop_info.ph_core_description %}
+                                        <div class="text-sm text-green-700 mt-1 bg-green-50 px-2 py-1 rounded">
+                                            <strong>PH Core:</strong> {{ prop_info.ph_core_description }}
+                                        </div>
+                                    {% endif %}
+                                    {% if prop_info.binding %}
+                                        <div class="text-xs text-gray-500 mt-1">
+                                            Binding: {{ prop_info.binding.strength }}
+                                            {% if prop_info.binding.valueSet %}
+                                                <br>ValueSet: <code class="text-xs">{{ prop_info.binding.valueSet }}</code>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- JSON Schema -->
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-900">JSON Schema Structure</h3>
+                <div class="text-sm text-gray-500">
+                    PH Core Profile (FHIR R4)
+                </div>
+            </div>
+        </div>
+        
+        <div class="relative">
+            <pre id="resource-content" class="bg-white p-6 text-sm font-mono overflow-x-hidden max-h-96 border-0 whitespace-pre-wrap break-words"><code class="json">{{ resource_json | safe }}</code></pre>
+            <div id="copy-notification" class="hidden absolute top-4 right-4 bg-green-100 text-green-800 px-3 py-2 rounded-lg text-sm">
+                <i data-lucide="check" class="w-4 h-4 inline mr-1"></i>
+                Copied to clipboard!
+            </div>
+        </div>
+    </div>
+
+    <!-- Implementation Notes -->
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <div class="flex items-start space-x-3">
+            <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0"></i>
+            <div>
+                <h3 class="text-sm font-medium text-yellow-900">PH Core Implementation Notes</h3>
+                <ul class="text-sm text-yellow-700 mt-1 list-disc list-inside space-y-1">
+                    <li>This profile builds upon the base FHIR {{ resource.resourceType|title }} resource with Philippine-specific requirements</li>
+                    <li>Green-highlighted properties and extensions are PH Core specific additions</li>
+                    <li>Extensions marked as required must be present for PH Core compliance</li>
+                    <li>Identifier slices define specific ID systems used in the Philippines (PhilHealth, PDD Registration, etc.)</li>
+                    <li>Address and contact information should use PH Core address profiles for Philippine locations</li>
+                    <li>All resources must include the PH Core profile URL in the meta.profile array</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyToClipboard() {
+        const content = document.getElementById('resource-content').textContent;
+        navigator.clipboard.writeText(content).then(() => {
+            const notification = document.getElementById('copy-notification');
+            notification.classList.remove('hidden');
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 2000);
+        });
+    }
+</script>
+{% endblock %}

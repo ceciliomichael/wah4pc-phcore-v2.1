@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="text-center">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Search FHIR Resources</h1>
+        <p class="text-gray-600">Find resources across FHIR Base, PH Core, and Examples</p>
+    </div>
+
+    <!-- Search Form -->
+    <div class="max-w-2xl mx-auto">
+        <form action="/search" method="get" class="relative">
+            <input 
+                type="text" 
+                name="q" 
+                placeholder="Search by name, type, title, or description..." 
+                value="{{ query }}"
+                class="w-full px-6 py-4 pl-12 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                autofocus
+            >
+            <i data-lucide="search" class="w-6 h-6 absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none">
+                Search
+            </button>
+        </form>
+    </div>
+
+    {% if query %}
+        <!-- Search Results -->
+        <div class="max-w-4xl mx-auto">
+            {% if results %}
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-2">
+                        Search Results for "{{ query }}"
+                    </h2>
+                    <p class="text-gray-600">{{ results|length }} resources found</p>
+                </div>
+
+                <!-- Results by Category -->
+                {% set fhir_base_results = results | selectattr('category', 'equalto', 'fhir_base') | list %}
+                {% set ph_core_results = results | selectattr('category', 'equalto', 'ph_core') | list %}
+                {% set example_results = results | selectattr('category', 'equalto', 'examples') | list %}
+
+                {% if fhir_base_results %}
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i data-lucide="database" class="w-5 h-5 mr-2 text-blue-600"></i>
+                            FHIR Base Resources ({{ fhir_base_results|length }})
+                        </h3>
+                        <div class="space-y-3">
+                            {% for result in fhir_base_results %}
+                                <a href="/resources/{{ result.category }}/{{ result.name }}" 
+                                   class="block bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-300 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                                            <i data-lucide="file" class="w-5 h-5 text-blue-600"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="font-medium text-gray-900">
+                                                {{ result.title or result.name|replace('-', ' ')|replace('_', ' ')|title }}
+                                            </h4>
+                                            <p class="text-sm text-gray-500 truncate">{{ result.name }}</p>
+                                            {% if result.description %}
+                                                <p class="text-sm text-gray-600 mt-1 line-clamp-2">{{ result.description[:100] }}{% if result.description|length > 100 %}...{% endif %}</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                            {{ result.resource_type }}
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if ph_core_results %}
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i data-lucide="map" class="w-5 h-5 mr-2 text-green-600"></i>
+                            PH Core Resources ({{ ph_core_results|length }})
+                        </h3>
+                        <div class="space-y-3">
+                            {% for result in ph_core_results %}
+                                <a href="/resources/{{ result.category }}/{{ result.name }}" 
+                                   class="block bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-green-300 transition-all focus:outline-none focus:ring-2 focus:ring-green-500">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                                            <i data-lucide="file" class="w-5 h-5 text-green-600"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="font-medium text-gray-900">
+                                                {{ result.title or result.name|replace('-', ' ')|replace('_', ' ')|title }}
+                                            </h4>
+                                            <p class="text-sm text-gray-500 truncate">{{ result.name }}</p>
+                                            {% if result.description %}
+                                                <p class="text-sm text-gray-600 mt-1 line-clamp-2">{{ result.description[:100] }}{% if result.description|length > 100 %}...{% endif %}</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                            {{ result.resource_type }}
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if example_results %}
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i data-lucide="file-text" class="w-5 h-5 mr-2 text-purple-600"></i>
+                            Example Resources ({{ example_results|length }})
+                        </h3>
+                        <div class="space-y-3">
+                            {% for result in example_results %}
+                                <a href="/resources/{{ result.category }}/{{ result.name }}" 
+                                   class="block bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-purple-300 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
+                                            <i data-lucide="file" class="w-5 h-5 text-purple-600"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="font-medium text-gray-900">
+                                                {{ result.title or result.name|replace('-', ' ')|replace('_', ' ')|title }}
+                                            </h4>
+                                            <p class="text-sm text-gray-500 truncate">{{ result.name }}</p>
+                                            {% if result.description %}
+                                                <p class="text-sm text-gray-600 mt-1 line-clamp-2">{{ result.description[:100] }}{% if result.description|length > 100 %}...{% endif %}</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                            {{ result.resource_type }}
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+            {% else %}
+                <!-- No Results -->
+                <div class="text-center py-12">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="search-x" class="w-8 h-8 text-gray-400"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">No results found</h3>
+                    <p class="text-gray-600 mb-4">No resources match your search query "{{ query }}"</p>
+                    <div class="text-sm text-gray-500">
+                        <p class="mb-2">Try searching for:</p>
+                        <ul class="space-y-1">
+                            <li>• Resource types (Patient, Observation, Organization)</li>
+                            <li>• Resource names or titles</li>
+                            <li>• Keywords in descriptions</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <!-- Search Suggestions -->
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center py-12">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="search" class="w-8 h-8 text-blue-600"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Search FHIR Resources</h3>
+                <p class="text-gray-600 mb-6">Enter a search term to find resources across all categories</p>
+                
+                <!-- Popular Searches -->
+                <div class="space-y-4">
+                    <h4 class="text-sm font-medium text-gray-700">Popular Searches:</h4>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <a href="/search?q=Patient" class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-200 focus:outline-none">Patient</a>
+                        <a href="/search?q=Observation" class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-200 focus:outline-none">Observation</a>
+                        <a href="/search?q=Organization" class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-200 focus:outline-none">Organization</a>
+                        <a href="/search?q=Practitioner" class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-200 focus:outline-none">Practitioner</a>
+                        <a href="/search?q=StructureDefinition" class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-200 focus:outline-none">StructureDefinition</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
