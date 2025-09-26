@@ -5,6 +5,6 @@
   "id": "occupational-classifications",
   "title": "Occupation Classifications",
   "description": "The Occupation codes valueset includes Occupational Classification values from the Philippine Standard Occupational Classification (PSOC) published by the Philippine Statistic Authority (PSA).",
-  "url": "http://localhost:6789/ValueSet/occupational-classifications",
+  "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/occupational-classifications",
   "experimental": true
 }

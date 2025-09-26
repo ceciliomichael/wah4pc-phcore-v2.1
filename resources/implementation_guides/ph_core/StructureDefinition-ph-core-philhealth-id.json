@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "ph-core-philhealth-id",
-  "url": "http://localhost:6789/StructureDefinition/ph-core-philhealth-id",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-philhealth-id",
   "name": "PHCorePhilHealthID",
   "title": "PIN - PhilHealth Identification Number",
   "status": "draft",

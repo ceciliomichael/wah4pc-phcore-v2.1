@@ -166,16 +166,4 @@
     </div>
 </div>
 
-<script>
-    function copyToClipboard() {
-        const content = document.getElementById('resource-content').textContent;
-        navigator.clipboard.writeText(content).then(() => {
-            const notification = document.getElementById('copy-notification');
-            notification.classList.remove('hidden');
-            setTimeout(() => {
-                notification.classList.add('hidden');
-            }, 2000);
-        });
-    }
-</script>
 {% endblock %}

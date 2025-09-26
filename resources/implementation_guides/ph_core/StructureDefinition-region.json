@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "region",
-  "url": "http://localhost:6789/StructureDefinition/region",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/region",
   "name": "Region",
   "title": "Region",
   "status": "draft",
@@ -35,7 +35,7 @@
       {
         "id": "Extension.url",
         "path": "Extension.url",
-        "fixedUri": "http://localhost:6789/StructureDefinition/region"
+        "fixedUri": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/region"
       },
       {
         "id": "Extension.value[x]",
@@ -47,7 +47,7 @@
         ],
         "binding": {
           "strength": "extensible",
-          "valueSet": "http://localhost:6789/ValueSet/regions"
+          "valueSet": "https://wah4pc-validation.echosphere.cfd/ValueSet/regions"
         }
       }
     ]

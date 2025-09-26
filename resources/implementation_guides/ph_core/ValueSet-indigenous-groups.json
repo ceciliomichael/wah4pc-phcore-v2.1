@@ -5,12 +5,12 @@
   "id": "indigenous-groups",
   "title": "Indigenous Groups",
   "description": "A value set representing the recognized Indigenous groups to which a person may belong.",
-  "url": "http://localhost:6789/ValueSet/indigenous-groups",
+  "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/indigenous-groups",
   "experimental": true,
   "compose": {
     "include": [
       {
-        "system": "http://localhost:6789/CodeSystem/indigenous-groups"
+        "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/indigenous-groups"
       }
     ]
   }

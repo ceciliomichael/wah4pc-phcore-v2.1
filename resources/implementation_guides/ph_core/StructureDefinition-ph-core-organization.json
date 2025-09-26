@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "ph-core-organization",
-  "url": "http://localhost:6789/StructureDefinition/ph-core-organization",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-organization",
   "name": "PHCoreOrganization",
   "title": "PH Core Organization",
   "status": "draft",
@@ -67,7 +67,7 @@
           {
             "code": "Address",
             "profile": [
-              "http://localhost:6789/StructureDefinition/ph-core-address"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-address"
             ]
           }
         ]
@@ -79,7 +79,7 @@
           {
             "code": "Address",
             "profile": [
-              "http://localhost:6789/StructureDefinition/ph-core-address"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-address"
             ]
           }
         ]

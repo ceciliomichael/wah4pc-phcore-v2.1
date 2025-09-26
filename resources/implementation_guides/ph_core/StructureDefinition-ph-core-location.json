@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "ph-core-location",
-  "url": "http://localhost:6789/StructureDefinition/ph-core-location",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-location",
   "name": "PHCoreLocation",
   "title": "PH Core Location",
   "status": "draft",
@@ -21,7 +21,7 @@
           {
             "code": "Address",
             "profile": [
-              "http://localhost:6789/StructureDefinition/ph-core-address"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-address"
             ]
           }
         ]
@@ -33,7 +33,7 @@
           {
             "code": "Reference",
             "targetProfile": [
-              "http://localhost:6789/StructureDefinition/ph-core-organization"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-organization"
             ]
           }
         ]
@@ -45,7 +45,7 @@
           {
             "code": "Reference",
             "targetProfile": [
-              "http://localhost:6789/StructureDefinition/ph-core-location"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-location"
             ],
             "extension": [
               {

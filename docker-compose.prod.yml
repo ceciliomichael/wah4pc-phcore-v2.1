@@ -1,0 +1,74 @@
+# Production configuration for docker-compose
+# Can be used standalone: docker-compose -f docker-compose.prod.yml up -d --build
+# Or as override: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+services:
+  fhir-validator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fhir-validation-server
+    ports:
+      - "6789:6789"
+    environment:
+      - PYTHONPATH=/app
+      - PORT=6789
+      # Production environment variables
+      - ENVIRONMENT=production
+      - LOG_LEVEL=info
+      - SERVER_URL=https://wah4pc-validation.echosphere.cfd
+    # Remove volume mounts for production (bake everything into image)
+    volumes: []
+    # Production restart policy
+    restart: always
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    # Production healthcheck with shorter intervals
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:6789/docs')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    networks:
+      - fhir-network
+
+  # Production reverse proxy (disabled - uncomment and configure nginx files if needed)
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: fhir-nginx-prod
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+  #     - ./nginx/ssl:/etc/nginx/ssl:ro
+  #   depends_on:
+  #     - fhir-validator
+  #   restart: always
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '0.5'
+  #         memory: 256M
+  #       reservations:
+  #         cpus: '0.1'
+  #         memory: 64M
+  #   networks:
+  #     - fhir-network
+
+networks:
+  fhir-network:
+    driver: bridge
+
+# Optional: Add volumes for persistent data
+volumes:
+  fhir-data:
+    driver: local

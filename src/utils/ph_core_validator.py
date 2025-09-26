@@ -46,7 +46,7 @@ class PHCoreValidator:
         """Get the PH-Core profile URL for a resource type."""
         if resource_type in self._supported_profiles:
             profile_id = self._supported_profiles[resource_type]
-            return f"http://localhost:6789/StructureDefinition/{profile_id}"
+            return f"https://wah4pc-validation.echosphere.cfd/StructureDefinition/{profile_id}"
         return None
     
     def _validate_required_extensions(
@@ -68,7 +68,7 @@ class PHCoreValidator:
         
         if resource_type == "Patient":
             # Indigenous People extension is REQUIRED for PH-Core Patient (min: 1)
-            indigenous_people_url = "http://localhost:6789/StructureDefinition/indigenous-people"
+            indigenous_people_url = "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people"
             if indigenous_people_url not in extension_urls:
                 issues.append(ValidationIssue(
                     severity=ValidationSeverity.ERROR,

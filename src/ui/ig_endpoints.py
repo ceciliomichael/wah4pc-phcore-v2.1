@@ -288,7 +288,7 @@ async def get_ig_summary() -> Dict[str, Any]:
         
         return {
             "implementation_guide": "PH-Core v0.1.0",
-            "base_url": "http://localhost:6789",
+            "base_url": "https://wah4pc-validation.echosphere.cfd",
             "total_resources": total_resources,
             "resources_by_type": summary,
             "status": "loaded"

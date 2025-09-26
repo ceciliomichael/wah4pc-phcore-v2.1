@@ -3,7 +3,7 @@
   "id": "patient-single-ex",
   "meta": {
     "profile": [
-      "http://localhost:6789/StructureDefinition/ph-core-patient"
+      "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"
     ]
   },
   "name": [
@@ -53,11 +53,11 @@
       }
     },
     {
-      "url": "http://localhost:6789/StructureDefinition/indigenous-people",
+      "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people",
       "valueBoolean": true
     },
     {
-      "url": "http://localhost:6789/StructureDefinition/indigenous-group",
+      "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-group",
       "valueCodeableConcept": {
         "coding": [
           {
@@ -69,7 +69,7 @@
       }
     },
     {
-      "url": "http://localhost:6789/StructureDefinition/race",
+      "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/race",
       "valueCodeableConcept": {
         "coding": [
           {
@@ -98,7 +98,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/city-municipality",
           "valueCoding": {
             "code": "1380200000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "City of Las Piñas"
           }
         },
@@ -106,7 +106,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/city-municipality",
           "valueCoding": {
             "code": "1380100000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "City of Caloocan"
           }
         },
@@ -114,7 +114,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
           "valueCoding": {
             "code": "0402100000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "Cavite"
           }
         },
@@ -122,7 +122,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
           "valueCoding": {
             "code": "0403400000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "Laguna"
           }
         },
@@ -130,7 +130,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
           "valueCoding": {
             "code": "0405800000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "Rizal"
           }
         },
@@ -138,7 +138,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
           "valueCoding": {
             "code": "1704000000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "Marinduque"
           }
         },
@@ -146,7 +146,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
           "valueCoding": {
             "code": "0402100000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "Cavite"
           }
         },
@@ -154,7 +154,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
           "valueCoding": {
             "code": "1705100000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "Occidental Mindoro"
           }
         }

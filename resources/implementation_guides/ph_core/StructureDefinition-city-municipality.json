@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "city-municipality",
-  "url": "http://localhost:6789/StructureDefinition/city-municipality",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/city-municipality",
   "name": "CityMunicipality",
   "title": "City/Municipality",
   "status": "draft",
@@ -35,7 +35,7 @@
       {
         "id": "Extension.url",
         "path": "Extension.url",
-        "fixedUri": "http://localhost:6789/StructureDefinition/city-municipality"
+        "fixedUri": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/city-municipality"
       },
       {
         "id": "Extension.value[x]",
@@ -47,7 +47,7 @@
         ],
         "binding": {
           "strength": "extensible",
-          "valueSet": "http://localhost:6789/ValueSet/cities"
+          "valueSet": "https://wah4pc-validation.echosphere.cfd/ValueSet/cities"
         }
       }
     ]

@@ -6,7 +6,7 @@
   "id": "PSGC",
   "title": "Mock PSGC",
   "description": "Mock of the Philippine Standard Geographic Code.",
-  "url": "http://localhost:6789/CodeSystem/PSGC",
+  "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
   "concept": [
     {
       "code": "1380100001",

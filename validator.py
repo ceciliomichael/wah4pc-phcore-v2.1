@@ -10,8 +10,8 @@ import json
 import requests
 
 # The URL of the local validation server (PH-Core STRICT validation)
-VALIDATION_URL = "http://localhost:6789/api/v1/validate/ph-core"
-STANDARD_VALIDATION_URL = "http://localhost:6789/api/v1/validate"
+VALIDATION_URL = "https://wah4pc-validation.echosphere.cfd/api/v1/validate/ph-core"
+STANDARD_VALIDATION_URL = "https://wah4pc-validation.echosphere.cfd/api/v1/validate"
 
 
 def validate_fhir_resource(file_path: str, use_ph_core: bool = True):

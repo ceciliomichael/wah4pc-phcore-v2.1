@@ -3,7 +3,7 @@
   "id": "organization-single-ex",
   "meta": {
     "profile": [
-      "http://localhost:6789/StructureDefinition/ph-core-organization"
+      "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-organization"
     ]
   },
   "identifier": [
@@ -24,7 +24,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/region",
           "valueCoding": {
             "code": "0102800000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "Ilocos Norte"
           }
         }

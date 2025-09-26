@@ -124,6 +124,94 @@
                 .replace(/:\s*(null)/g, ': <span class="json-null">$1</span>');
         }
         
+        // Universal copy to clipboard function with fallback
+        function copyToClipboard(elementId = 'resource-content') {
+            const element = document.getElementById(elementId);
+            if (!element) {
+                showNotification('Element not found', 'error');
+                return;
+            }
+            
+            const content = element.textContent || element.innerText;
+            
+            // Try modern clipboard API first (requires HTTPS or localhost)
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(content).then(() => {
+                    showNotification('Copied to clipboard!', 'success');
+                }).catch(err => {
+                    console.error('Clipboard API failed:', err);
+                    fallbackCopyTextToClipboard(content);
+                });
+            } else {
+                // Fallback for non-secure contexts or older browsers
+                fallbackCopyTextToClipboard(content);
+            }
+        }
+        
+        // Fallback copy method for non-secure contexts
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.top = '0';
+            textArea.style.left = '0';
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showNotification('Copied to clipboard!', 'success');
+                } else {
+                    showNotification('Copy failed. Please copy manually.', 'error');
+                }
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+                showNotification('Copy not supported. Please copy manually.', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            // Try to find existing notification element
+            let notification = document.getElementById('copy-notification');
+            
+            if (!notification) {
+                // Create notification element if it doesn't exist
+                notification = document.createElement('div');
+                notification.id = 'copy-notification';
+                notification.className = 'fixed top-4 right-4 px-4 py-2 rounded-lg text-sm font-medium z-50 transition-all duration-300';
+                document.body.appendChild(notification);
+            }
+            
+            // Set notification style based on type
+            if (type === 'success') {
+                notification.className = notification.className.replace(/bg-\w+-\d+/g, '').replace(/text-\w+-\d+/g, '');
+                notification.className += ' bg-green-100 text-green-800 border border-green-200';
+                notification.innerHTML = '<i data-lucide="check" class="w-4 h-4 inline mr-1"></i>' + message;
+            } else {
+                notification.className = notification.className.replace(/bg-\w+-\d+/g, '').replace(/text-\w+-\d+/g, '');
+                notification.className += ' bg-red-100 text-red-800 border border-red-200';
+                notification.innerHTML = '<i data-lucide="x-circle" class="w-4 h-4 inline mr-1"></i>' + message;
+            }
+            
+            // Show notification
+            notification.classList.remove('hidden');
+            
+            // Reinitialize icons for the new content
+            lucide.createIcons();
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+        
         // Apply JSON highlighting to code blocks
         document.addEventListener('DOMContentLoaded', function() {
             const codeBlocks = document.querySelectorAll('pre code');

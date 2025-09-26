@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "ph-core-relatedperson",
-  "url": "http://localhost:6789/StructureDefinition/ph-core-relatedperson",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-relatedperson",
   "name": "PHCoreRelatedPerson",
   "title": "PH Core RelatedPerson",
   "status": "draft",
@@ -21,8 +21,8 @@
           {
             "code": "Identifier",
             "profile": [
-              "http://localhost:6789/StructureDefinition/ph-core-philhealth-id",
-              "http://localhost:6789/StructureDefinition/ph-core-philsys-id"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-philhealth-id",
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-philsys-id"
             ]
           }
         ]
@@ -34,7 +34,7 @@
           {
             "code": "Address",
             "profile": [
-              "http://localhost:6789/StructureDefinition/ph-core-address"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-address"
             ]
           }
         ]
