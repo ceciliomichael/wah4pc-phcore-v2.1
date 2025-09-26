@@ -6,7 +6,7 @@
   "id": "PSOC",
   "title": "Mock PSOC",
   "description": "Mock of the Philippine Standard Occupational Classification.",
-  "url": "http://localhost:6789/CodeSystem/PSOC",
+  "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSOC",
   "experimental": true,
   "caseSensitive": true
 }

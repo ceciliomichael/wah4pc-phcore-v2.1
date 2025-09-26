@@ -5,12 +5,12 @@
   "id": "regions",
   "title": "Regions",
   "description": "The Region codes valueset includes all region values from the Philippine Standard Geographic Codes (PSGC) published by the Philippine Statistic Authority (PSA).",
-  "url": "http://localhost:6789/ValueSet/regions",
+  "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/regions",
   "experimental": true,
   "compose": {
     "include": [
       {
-        "system": "http://localhost:6789/CodeSystem/PSGC",
+        "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
         "concept": [
           {
             "code": "0102800000",

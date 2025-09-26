@@ -1,0 +1,52 @@
+services:
+  fhir-validator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fhir-validation-server
+    ports:
+      - "6789:6789"
+    environment:
+      - PYTHONPATH=/app
+      - PORT=6789
+    volumes:
+      # Mount resources directory to allow for easy updates without rebuilding
+      - ./resources:/app/resources:ro
+      # Mount static files
+      - ./static:/app/static:ro
+      # Mount templates
+      - ./templates:/app/templates:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:6789/docs')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - fhir-network
+
+  # Optional: Add a reverse proxy (uncomment if needed)
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: fhir-nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  #     - ./ssl:/etc/nginx/ssl:ro
+  #   depends_on:
+  #     - fhir-validator
+  #   restart: unless-stopped
+  #   networks:
+  #     - fhir-network
+
+networks:
+  fhir-network:
+    driver: bridge
+
+# Optional: Add volumes for persistent data
+volumes:
+  fhir-data:
+    driver: local

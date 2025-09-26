@@ -6,7 +6,7 @@
   "id": "indigenous-groups",
   "title": "Indigenous Groups",
   "description": "A list of codes representing the recognized indigenous groups in the Philippines to which a person may belong.",
-  "url": "http://localhost:6789/CodeSystem/indigenous-groups",
+  "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/indigenous-groups",
   "concept": [
     {
       "code": "Aetas",

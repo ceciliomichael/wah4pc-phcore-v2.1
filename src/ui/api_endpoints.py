@@ -54,7 +54,7 @@ async def validate_fhir_resource(
                         "gender": "male",
                         "birthDate": "1990-01-01"
                     },
-                    "profile": "http://localhost:6789/StructureDefinition/ph-core-patient",
+                    "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient",
                     "validate_code_systems": True,
                     "validate_value_sets": True,
                     "use_ph_core": True,
@@ -123,11 +123,11 @@ async def validate_ph_core_fhir_resource(
                         "resourceType": "Patient",
                         "id": "ph-core-patient",
                         "meta": {
-                            "profile": ["http://localhost:6789/StructureDefinition/ph-core-patient"]
+                            "profile": ["https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"]
                         },
                         "extension": [
                             {
-                                "url": "http://localhost:6789/StructureDefinition/indigenous-people",
+                                "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people",
                                 "valueBoolean": False
                             }
                         ],

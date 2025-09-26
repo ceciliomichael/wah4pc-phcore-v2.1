@@ -6,7 +6,7 @@
   "id": "drugs",
   "title": "Drugs",
   "description": "Partial Establishments and Health Products to be published by the [PH FDA](https://verification.fda.gov.ph).",
-  "url": "http://localhost:6789/CodeSystem/drugs",
+  "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/drugs",
   "experimental": true,
   "caseSensitive": true
 }

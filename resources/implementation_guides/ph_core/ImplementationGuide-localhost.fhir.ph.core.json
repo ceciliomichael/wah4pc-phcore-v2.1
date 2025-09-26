@@ -2,7 +2,7 @@
   "resourceType": "ImplementationGuide",
   "id": "localhost.fhir.ph.core",
   "language": "en",
-  "url": "http://localhost:6789/ImplementationGuide/localhost.fhir.ph.core",
+  "url": "https://wah4pc-validation.echosphere.cfd/ImplementationGuide/localhost.fhir.ph.core",
   "version": "0.1.0",
   "name": "PHCoreImplementationGuide",
   "title": "PH Core Implementation Guide",
@@ -68,7 +68,7 @@
         },
         "name": "blood-pressure",
         "description": "Blood pressure observation for Juan Dela Cruz taken on 17 September 2012. Systolic: 107 mmHg (Normal), Diastolic: 60 mmHg (Below low normal).",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-observation"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-observation"
       },
       {
         "reference": {
@@ -148,7 +148,7 @@
         },
         "name": "encounter-single-ex",
         "description": "An ambulatory encounter for Juan Dela Cruz that has been completed.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-encounter"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-encounter"
       },
       {
         "reference": {
@@ -156,7 +156,7 @@
         },
         "name": "Example PH Core Organization",
         "description": "An example instance of a PH Core Organization conforming to the Philippine localization profile.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-organization"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-organization"
       },
       {
         "reference": {
@@ -180,7 +180,7 @@
         },
         "name": "example-encounter",
         "description": "An ambulatory encounter for Juan Dela Cruz that has been completed.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-encounter"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-encounter"
       },
       {
         "reference": {
@@ -188,7 +188,7 @@
         },
         "name": "example-immunization",
         "description": "Flu shot for H5N1-1203.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-immunization"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-immunization"
       },
       {
         "reference": {
@@ -196,7 +196,7 @@
         },
         "name": "example-medication",
         "description": "A medication resource with no specific details provided.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-medication"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-medication"
       },
       {
         "reference": {
@@ -204,7 +204,7 @@
         },
         "name": "example-patient",
         "description": "Juan Dela Cruz is a male patient born on 1 January 1980, residing in Manila, NCR, Philippines.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-patient"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"
       },
       {
         "reference": {
@@ -212,7 +212,7 @@
         },
         "name": "example-practitioner",
         "description": "Dr. Maria Clara Santos, a female practitioner born on 1985-05-15, resides at 1234 Mabini Street, Manila, NCR, 1000, Philippines. She can be contacted via mobile at +63-912-345-6789 or by email at maria.santos@example.ph.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-practitioner"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-practitioner"
       },
       {
         "reference": {
@@ -220,7 +220,7 @@
         },
         "name": "immunization-single-ex",
         "description": "Flu shot for H5N1-1203.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-immunization"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-immunization"
       },
       {
         "reference": {
@@ -260,7 +260,7 @@
         },
         "name": "medication-single-ex",
         "description": "A medication resource with no specific details provided.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-medication"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-medication"
       },
       {
         "reference": {
@@ -292,7 +292,7 @@
         },
         "name": "observation-single-ex",
         "description": "Blood pressure observation for Juan Dela Cruz taken on 17 September 2012. Systolic: 107 mmHg (Normal), Diastolic: 60 mmHg (Below low normal).",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-observation"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-observation"
       },
       {
         "reference": {
@@ -316,7 +316,7 @@
         },
         "name": "patient-single-ex",
         "description": "Juan Dela Cruz is a male patient born on 1 January 1980, residing in Manila, NCR, Philippines.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-patient"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"
       },
       {
         "reference": {
@@ -460,7 +460,7 @@
         },
         "name": "practitioner-single-ex",
         "description": "Dr. Maria Clara Santos, a female practitioner born on 1985-05-15, resides at 1234 Mabini Street, Manila, NCR, 1000, Philippines. She can be contacted via mobile at +63-912-345-6789 or by email at maria.santos@example.ph.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-practitioner"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-practitioner"
       },
       {
         "reference": {
@@ -508,7 +508,7 @@
         },
         "name": "relatedperson-single-ex",
         "description": "Maria Cruz Santos is a female born on 1 January 1955.",
-        "exampleCanonical": "http://localhost:6789/StructureDefinition/ph-core-relatedperson"
+        "exampleCanonical": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-relatedperson"
       },
       {
         "reference": {

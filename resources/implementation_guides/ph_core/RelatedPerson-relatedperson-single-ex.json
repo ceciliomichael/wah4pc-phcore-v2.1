@@ -3,7 +3,7 @@
   "id": "relatedperson-single-ex",
   "meta": {
     "profile": [
-      "http://localhost:6789/StructureDefinition/ph-core-relatedperson"
+      "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-relatedperson"
     ]
   },
   "identifier": [
@@ -41,7 +41,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/region",
           "valueCoding": {
             "code": "0102800000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "Ilocos Norte"
           }
         },
@@ -49,7 +49,7 @@
           "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
           "valueCoding": {
             "code": "1705100000",
-            "system": "http://localhost:6789/CodeSystem/PSGC",
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
             "display": "Occidental Mindoro"
           }
         }

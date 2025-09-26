@@ -14,77 +14,77 @@
           "filename": "StructureDefinition-ph-core-patient.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core Patient",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-patient",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient",
           "description": "Patient profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-practitioner.json",
           "resourceType": "StructureDefinition", 
           "name": "PH Core Practitioner",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-practitioner",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-practitioner",
           "description": "Practitioner profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-organization.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core Organization", 
-          "url": "http://localhost:6789/StructureDefinition/ph-core-organization",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-organization",
           "description": "Organization profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-encounter.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core Encounter",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-encounter", 
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-encounter", 
           "description": "Encounter profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-observation.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core Observation",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-observation",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-observation",
           "description": "Observation profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-medication.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core Medication", 
-          "url": "http://localhost:6789/StructureDefinition/ph-core-medication",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-medication",
           "description": "Medication profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-immunization.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core Immunization",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-immunization",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-immunization",
           "description": "Immunization profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-procedure.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core Procedure",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-procedure",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-procedure",
           "description": "Procedure profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-location.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core Location",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-location",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-location",
           "description": "Location profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-relatedperson.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core RelatedPerson",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-relatedperson",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-relatedperson",
           "description": "RelatedPerson profile for Philippines healthcare context"
         },
         {
           "filename": "StructureDefinition-ph-core-address.json",
           "resourceType": "StructureDefinition",
           "name": "PH Core Address",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-address",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-address",
           "description": "Address profile with Philippine geographic extensions"
         }
       ]
@@ -97,91 +97,91 @@
           "filename": "StructureDefinition-ph-core-philhealth-id.json",
           "resourceType": "StructureDefinition",
           "name": "PhilHealth ID",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-philhealth-id",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-philhealth-id",
           "description": "PhilHealth identification number extension"
         },
         {
           "filename": "StructureDefinition-ph-core-philsys-id.json", 
           "resourceType": "StructureDefinition",
           "name": "PhilSys ID",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-philsys-id",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-philsys-id",
           "description": "Philippine National ID (PhilSys) extension"
         },
         {
           "filename": "StructureDefinition-ph-core-doh-nhfr-code.json",
           "resourceType": "StructureDefinition",
           "name": "DOH NHFR Code",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-doh-nhfr-code",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-doh-nhfr-code",
           "description": "DOH National Health Facility Registry code extension"
         },
         {
           "filename": "StructureDefinition-ph-core-pdd-registration.json",
           "resourceType": "StructureDefinition", 
           "name": "PDD Registration",
-          "url": "http://localhost:6789/StructureDefinition/ph-core-pdd-registration",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-pdd-registration",
           "description": "PhilHealth Dialysis Database registration extension"
         },
         {
           "filename": "StructureDefinition-indigenous-people.json",
           "resourceType": "StructureDefinition",
           "name": "Indigenous People",
-          "url": "http://localhost:6789/StructureDefinition/indigenous-people",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people",
           "description": "Extension to indicate if patient is indigenous people"
         },
         {
           "filename": "StructureDefinition-indigenous-group.json",
           "resourceType": "StructureDefinition",
           "name": "Indigenous Group",
-          "url": "http://localhost:6789/StructureDefinition/indigenous-group", 
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-group", 
           "description": "Extension for specific indigenous group membership"
         },
         {
           "filename": "StructureDefinition-educational-attainment.json",
           "resourceType": "StructureDefinition",
           "name": "Educational Attainment",
-          "url": "http://localhost:6789/StructureDefinition/educational-attainment",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/educational-attainment",
           "description": "Extension for highest educational attainment (PSCED-based)"
         },
         {
           "filename": "StructureDefinition-occupation.json",
           "resourceType": "StructureDefinition",
           "name": "Occupation",
-          "url": "http://localhost:6789/StructureDefinition/occupation",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/occupation",
           "description": "Extension for patient occupation (PSOC-based)"
         },
         {
           "filename": "StructureDefinition-race.json",
           "resourceType": "StructureDefinition",
           "name": "Race",
-          "url": "http://localhost:6789/StructureDefinition/race",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/race",
           "description": "Extension for patient race/ethnicity"
         },
         {
           "filename": "StructureDefinition-region.json",
           "resourceType": "StructureDefinition",
           "name": "Region",
-          "url": "http://localhost:6789/StructureDefinition/region",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/region",
           "description": "Extension for Philippine administrative region (PSGC)"
         },
         {
           "filename": "StructureDefinition-province.json",
           "resourceType": "StructureDefinition",
           "name": "Province", 
-          "url": "http://localhost:6789/StructureDefinition/province",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/province",
           "description": "Extension for Philippine province (PSGC)"
         },
         {
           "filename": "StructureDefinition-city-municipality.json",
           "resourceType": "StructureDefinition",
           "name": "City/Municipality",
-          "url": "http://localhost:6789/StructureDefinition/city-municipality",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/city-municipality",
           "description": "Extension for Philippine city/municipality (PSGC)"
         },
         {
           "filename": "StructureDefinition-barangay.json",
           "resourceType": "StructureDefinition",
           "name": "Barangay",
-          "url": "http://localhost:6789/StructureDefinition/barangay",
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/barangay",
           "description": "Extension for Philippine barangay (PSGC)"
         }
       ]
@@ -194,35 +194,35 @@
           "filename": "CodeSystem-PSGC.json",
           "resourceType": "CodeSystem",
           "name": "Philippine Standard Geographic Code",
-          "url": "http://localhost:6789/CodeSystem/PSGC", 
+          "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC", 
           "description": "Mock PSGC codes for Philippine geographic locations"
         },
         {
           "filename": "CodeSystem-PSCED.json",
           "resourceType": "CodeSystem",
           "name": "Philippine Standard Classification of Education",
-          "url": "http://localhost:6789/CodeSystem/PSCED",
+          "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSCED",
           "description": "Mock PSCED codes for educational programs and attainment"
         },
         {
           "filename": "CodeSystem-PSOC.json",
           "resourceType": "CodeSystem",
           "name": "Philippine Standard Occupational Classification", 
-          "url": "http://localhost:6789/CodeSystem/PSOC",
+          "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSOC",
           "description": "Mock PSOC codes for occupational classifications"
         },
         {
           "filename": "CodeSystem-drugs.json",
           "resourceType": "CodeSystem",
           "name": "Philippine FDA Drug Codes",
-          "url": "http://localhost:6789/CodeSystem/drugs",
+          "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/drugs",
           "description": "Drug codes from Philippine FDA registry"
         },
         {
           "filename": "CodeSystem-indigenous-groups.json",
           "resourceType": "CodeSystem",
           "name": "Indigenous Groups",
-          "url": "http://localhost:6789/CodeSystem/indigenous-groups",
+          "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/indigenous-groups",
           "description": "Codes for recognized indigenous groups in the Philippines"
         }
       ]
@@ -235,56 +235,56 @@
           "filename": "ValueSet-regions.json",
           "resourceType": "ValueSet",
           "name": "Philippine Regions",
-          "url": "http://localhost:6789/ValueSet/regions",
+          "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/regions",
           "description": "All Philippine administrative regions from PSGC"
         },
         {
           "filename": "ValueSet-provinces.json",
           "resourceType": "ValueSet",
           "name": "Philippine Provinces", 
-          "url": "http://localhost:6789/ValueSet/provinces",
+          "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/provinces",
           "description": "All Philippine provinces from PSGC"
         },
         {
           "filename": "ValueSet-cities.json",
           "resourceType": "ValueSet",
           "name": "Philippine Cities",
-          "url": "http://localhost:6789/ValueSet/cities",
+          "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/cities",
           "description": "All Philippine cities/municipalities from PSGC"
         },
         {
           "filename": "ValueSet-barangays.json",
           "resourceType": "ValueSet",
           "name": "Philippine Barangays",
-          "url": "http://localhost:6789/ValueSet/barangays", 
+          "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/barangays", 
           "description": "All Philippine barangays from PSGC"
         },
         {
           "filename": "ValueSet-educational-attainments.json",
           "resourceType": "ValueSet",
           "name": "Educational Attainments",
-          "url": "http://localhost:6789/ValueSet/educational-attainments",
+          "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/educational-attainments",
           "description": "Educational programs and attainment levels from PSCED"
         },
         {
           "filename": "ValueSet-occupational-classifications.json",
           "resourceType": "ValueSet",
           "name": "Occupational Classifications",
-          "url": "http://localhost:6789/ValueSet/occupational-classifications",
+          "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/occupational-classifications",
           "description": "Occupational classifications from PSOC"
         },
         {
           "filename": "ValueSet-drugs.json",
           "resourceType": "ValueSet",
           "name": "Philippine Drugs",
-          "url": "http://localhost:6789/ValueSet/drugs",
+          "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/drugs",
           "description": "Drugs and medicaments from Philippine FDA"
         },
         {
           "filename": "ValueSet-indigenous-groups.json",
           "resourceType": "ValueSet",
           "name": "Indigenous Groups",
-          "url": "http://localhost:6789/ValueSet/indigenous-groups",
+          "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/indigenous-groups",
           "description": "Recognized indigenous groups in the Philippines"
         }
       ]
@@ -326,79 +326,79 @@
         {
           "filename": "Patient-example-patient.json",
           "resourceType": "Patient",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-patient",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient",
           "description": "Juan Dela Cruz - example PH Core patient with PhilHealth ID and indigenous group"
         },
         {
           "filename": "Patient-patient-single-ex.json",
           "resourceType": "Patient", 
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-patient",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient",
           "description": "Alternative example of PH Core patient"
         },
         {
           "filename": "Practitioner-example-practitioner.json",
           "resourceType": "Practitioner",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-practitioner",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-practitioner",
           "description": "Dr. Maria Clara Santos - example PH Core practitioner"
         },
         {
           "filename": "Practitioner-practitioner-single-ex.json",
           "resourceType": "Practitioner",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-practitioner", 
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-practitioner", 
           "description": "Alternative example of PH Core practitioner"
         },
         {
           "filename": "Organization-organization-single-ex.json",
           "resourceType": "Organization",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-organization",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-organization",
           "description": "Example PH Core organization"
         },
         {
           "filename": "Encounter-example-encounter.json",
           "resourceType": "Encounter",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-encounter",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-encounter",
           "description": "Example ambulatory encounter for Juan Dela Cruz"
         },
         {
           "filename": "Encounter-encounter-single-ex.json",
           "resourceType": "Encounter",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-encounter",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-encounter",
           "description": "Alternative example of PH Core encounter"
         },
         {
           "filename": "Observation-blood-pressure.json",
           "resourceType": "Observation",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-observation",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-observation",
           "description": "Blood pressure observation for Juan Dela Cruz"
         },
         {
           "filename": "Observation-observation-single-ex.json", 
           "resourceType": "Observation",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-observation",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-observation",
           "description": "Alternative example of PH Core observation"
         },
         {
           "filename": "Medication-example-medication.json",
           "resourceType": "Medication",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-medication",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-medication",
           "description": "Example PH Core medication"
         },
         {
           "filename": "Medication-medication-single-ex.json",
           "resourceType": "Medication",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-medication",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-medication",
           "description": "Alternative example of PH Core medication"
         },
         {
           "filename": "Immunization-example-immunization.json",
           "resourceType": "Immunization",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-immunization",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-immunization",
           "description": "Flu shot immunization example"
         },
         {
           "filename": "Immunization-immunization-single-ex.json", 
           "resourceType": "Immunization",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-immunization",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-immunization",
           "description": "Alternative immunization example"
         },
         {
@@ -424,7 +424,7 @@
         {
           "filename": "RelatedPerson-relatedperson-single-ex.json",
           "resourceType": "RelatedPerson",
-          "profile": "http://localhost:6789/StructureDefinition/ph-core-relatedperson",
+          "profile": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-relatedperson",
           "description": "Maria Cruz Santos - related person example"
         },
         {
@@ -442,7 +442,7 @@
           "filename": "ImplementationGuide-localhost.fhir.ph.core.json",
           "resourceType": "ImplementationGuide",
           "name": "PH Core Implementation Guide",
-          "url": "http://localhost:6789/ImplementationGuide/localhost.fhir.ph.core",
+          "url": "https://wah4pc-validation.echosphere.cfd/ImplementationGuide/localhost.fhir.ph.core",
           "description": "Main implementation guide definition for PH Core"
         }
       ]

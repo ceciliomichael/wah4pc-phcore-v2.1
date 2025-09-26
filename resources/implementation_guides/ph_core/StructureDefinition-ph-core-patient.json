@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "ph-core-patient",
-  "url": "http://localhost:6789/StructureDefinition/ph-core-patient",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient",
   "name": "PHCorePatient",
   "title": "PH Core Patient",
   "status": "draft",
@@ -69,7 +69,7 @@
           {
             "code": "Extension",
             "profile": [
-              "http://localhost:6789/StructureDefinition/indigenous-group"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-group"
             ]
           }
         ]
@@ -84,7 +84,7 @@
           {
             "code": "Extension",
             "profile": [
-              "http://localhost:6789/StructureDefinition/indigenous-people"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people"
             ]
           }
         ]
@@ -99,7 +99,7 @@
           {
             "code": "Extension",
             "profile": [
-              "http://localhost:6789/StructureDefinition/occupation"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/occupation"
             ]
           }
         ]
@@ -114,7 +114,7 @@
           {
             "code": "Extension",
             "profile": [
-              "http://localhost:6789/StructureDefinition/race"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/race"
             ]
           }
         ]
@@ -129,7 +129,7 @@
           {
             "code": "Extension",
             "profile": [
-              "http://localhost:6789/StructureDefinition/educational-attainment"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/educational-attainment"
             ]
           }
         ]
@@ -208,7 +208,7 @@
           {
             "code": "Address",
             "profile": [
-              "http://localhost:6789/StructureDefinition/ph-core-address"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-address"
             ]
           }
         ]
@@ -236,7 +236,7 @@
           {
             "code": "Address",
             "profile": [
-              "http://localhost:6789/StructureDefinition/ph-core-address"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-address"
             ]
           }
         ]

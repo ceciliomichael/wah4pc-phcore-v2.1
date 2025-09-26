@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "ph-core-doh-nhfr-code",
-  "url": "http://localhost:6789/StructureDefinition/ph-core-doh-nhfr-code",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-doh-nhfr-code",
   "name": "PHCoreDohNhfrCode",
   "title": "DOH NHFR Code",
   "status": "draft",

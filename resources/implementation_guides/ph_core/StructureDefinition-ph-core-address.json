@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "ph-core-address",
-  "url": "http://localhost:6789/StructureDefinition/ph-core-address",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-address",
   "name": "PHCoreAddress",
   "title": "PH Core Address",
   "status": "draft",
@@ -24,7 +24,7 @@
           {
             "code": "Extension",
             "profile": [
-              "http://localhost:6789/StructureDefinition/province"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/province"
             ]
           }
         ]
@@ -39,7 +39,7 @@
           {
             "code": "Extension",
             "profile": [
-              "http://localhost:6789/StructureDefinition/city-municipality"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/city-municipality"
             ]
           }
         ]
@@ -54,7 +54,7 @@
           {
             "code": "Extension",
             "profile": [
-              "http://localhost:6789/StructureDefinition/barangay"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/barangay"
             ]
           }
         ]

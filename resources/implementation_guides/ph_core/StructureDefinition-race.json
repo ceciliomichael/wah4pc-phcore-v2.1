@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "race",
-  "url": "http://localhost:6789/StructureDefinition/race",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/race",
   "name": "Race",
   "title": "Race",
   "status": "draft",
@@ -34,7 +34,7 @@
       {
         "id": "Extension.url",
         "path": "Extension.url",
-        "fixedUri": "http://localhost:6789/StructureDefinition/race"
+        "fixedUri": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/race"
       },
       {
         "id": "Extension.value[x]",

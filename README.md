@@ -25,9 +25,9 @@ A universal FHIR (Fast Healthcare Interoperability Resources) validation server 
    ```
 
 3. **Access the API**:
-   - Swagger UI: http://localhost:6789/docs
-   - ReDoc: http://localhost:6789/redoc
-   - API Base URL: http://localhost:6789/api/v1
+   - Swagger UI: https://wah4pc-validation.echosphere.cfd/docs
+   - ReDoc: https://wah4pc-validation.echosphere.cfd/redoc
+   - API Base URL: https://wah4pc-validation.echosphere.cfd/api/v1
 
 ## API Endpoints
 
@@ -48,7 +48,7 @@ A universal FHIR (Fast Healthcare Interoperability Resources) validation server 
 ### Validate a Patient Resource
 
 ```bash
-curl -X POST "http://localhost:6789/api/v1/validate" \
+curl -X POST "https://wah4pc-validation.echosphere.cfd/api/v1/validate" \
   -H "Content-Type: application/json" \
   -d '{
     "resource": {

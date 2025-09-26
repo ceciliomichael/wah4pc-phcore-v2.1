@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "barangay",
-  "url": "http://localhost:6789/StructureDefinition/barangay",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/barangay",
   "name": "Barangay",
   "status": "draft",
   "experimental": true,
@@ -33,7 +33,7 @@
       {
         "id": "Extension.url",
         "path": "Extension.url",
-        "fixedUri": "http://localhost:6789/StructureDefinition/barangay"
+        "fixedUri": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/barangay"
       },
       {
         "id": "Extension.value[x]",
@@ -45,7 +45,7 @@
         ],
         "binding": {
           "strength": "extensible",
-          "valueSet": "http://localhost:6789/ValueSet/barangays"
+          "valueSet": "https://wah4pc-validation.echosphere.cfd/ValueSet/barangays"
         }
       }
     ]

@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "ph-core-observation",
-  "url": "http://localhost:6789/StructureDefinition/ph-core-observation",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-observation",
   "name": "PHCoreObservation",
   "title": "PH Core Observation",
   "status": "draft",
@@ -21,7 +21,7 @@
           {
             "code": "Reference",
             "targetProfile": [
-              "http://localhost:6789/StructureDefinition/ph-core-patient"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"
             ]
           }
         ]
@@ -33,7 +33,7 @@
           {
             "code": "Reference",
             "targetProfile": [
-              "http://localhost:6789/StructureDefinition/ph-core-encounter"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-encounter"
             ]
           }
         ]

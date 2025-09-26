@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "ph-core-encounter",
-  "url": "http://localhost:6789/StructureDefinition/ph-core-encounter",
+  "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-encounter",
   "name": "PHCoreEncounter",
   "title": "PH Core Encounter",
   "status": "draft",
@@ -21,7 +21,7 @@
           {
             "code": "Reference",
             "targetProfile": [
-              "http://localhost:6789/StructureDefinition/ph-core-patient"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"
             ]
           }
         ]
@@ -33,9 +33,9 @@
           {
             "code": "Reference",
             "targetProfile": [
-              "http://localhost:6789/StructureDefinition/ph-core-practitioner",
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-practitioner",
               "http://hl7.org/fhir/StructureDefinition/PractitionerRole",
-              "http://localhost:6789/StructureDefinition/ph-core-relatedperson"
+              "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-relatedperson"
             ]
           }
         ]

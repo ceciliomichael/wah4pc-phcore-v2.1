@@ -3,7 +3,7 @@
   "id": "blood-pressure",
   "meta": {
     "profile": [
-      "http://localhost:6789/StructureDefinition/ph-core-observation",
+      "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-observation",
       "http://hl7.org/fhir/StructureDefinition/vitalsigns",
       "http://hl7.org/fhir/StructureDefinition/bp"
     ]

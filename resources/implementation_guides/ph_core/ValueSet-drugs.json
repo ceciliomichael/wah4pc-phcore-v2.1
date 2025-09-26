@@ -5,6 +5,6 @@
   "id": "drugs",
   "title": "Drugs",
   "description": "This value set includes all drug or medicament substance codes and all pharmaceutical/biologic products from FDA.",
-  "url": "http://localhost:6789/ValueSet/drugs",
+  "url": "https://wah4pc-validation.echosphere.cfd/ValueSet/drugs",
   "experimental": true
 }

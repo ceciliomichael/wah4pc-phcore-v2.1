@@ -6,7 +6,7 @@
   "id": "PSCED",
   "title": "Mock PSCED",
   "description": "Mock of the Philippine Standard Classification of Education.",
-  "url": "http://localhost:6789/CodeSystem/PSCED",
+  "url": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSCED",
   "experimental": true,
   "caseSensitive": true
 }
