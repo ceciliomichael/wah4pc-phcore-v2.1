@@ -1,282 +1,210 @@
 {
-    "resourceType": "Patient",
-    "id": "example-comprehensive",
-    "meta": {
-      "profile": [
-        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
-      ],
-      "lastUpdated": "2023-10-27T10:00:00Z"
-    },
-    "identifier": [
-      {
-        "use": "usual",
-        "type": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-              "code": "MR",
-              "display": "Medical Record Number"
-            }
-          ],
-          "text": "Medical Record Number"
-        },
-        "system": "http://hospital.example.org/fhir/mrn",
-        "value": "123456789",
-        "period": {
-          "start": "2010-01-01"
-        },
-        "assigner": {
-          "display": "Example General Hospital"
-        }
-      },
-      {
-        "use": "official",
-        "type": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-              "code": "SS",
-              "display": "Social Security Number"
-            }
-          ],
-          "text": "Social Security Number"
-        },
-        "system": "http://hl7.org/fhir/sid/us-ssn",
-        "value": "999-88-7777"
-      },
-      {
-        "use": "temp",
-        "type": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-              "code": "DL",
-              "display": "Driver's License number"
-            }
-          ],
-          "text": "Driver's License"
-        },
-        "system": "http://hl7.org/fhir/sid/us-dl",
-        "value": "X12345678",
-        "assigner": {
-          "display": "California DMV"
-        }
-      }
-    ],
-    "active": true,
-    "name": [
-      {
-        "use": "official",
-        "family": "Smith",
-        "given": [
-          "Jane",
-          "Elizabeth"
-        ],
-        "prefix": [
-          "Ms."
-        ]
-      },
-      {
-        "use": "maiden",
-        "family": "Doe",
-        "given": [
-          "Jane",
-          "Elizabeth"
-        ]
-      },
-      {
-        "use": "nickname",
-        "given": [
-          "Janey"
-        ]
-      }
-    ],
-    "telecom": [
-      {
-        "system": "phone",
-        "value": "555-123-4567",
-        "use": "home",
-        "rank": 1
-      },
-      {
-        "system": "phone",
-        "value": "555-987-6543",
-        "use": "mobile",
-        "rank": 2
-      },
-      {
-        "system": "email",
-        "value": "jane.smith@example.com",
-        "use": "home"
-      }
-    ],
-    "gender": "female",
-    "birthDate": "1985-06-20",
-    "deceasedBoolean": false,
-    "address": [
-      {
-        "use": "home",
-        "type": "physical",
-        "line": [
-          "123 Main St",
-          "Apt 4B"
-        ],
-        "city": "Anytown",
-        "state": "CA",
-        "postalCode": "90210",
-        "country": "USA",
-        "period": {
-          "start": "2015-01-01"
-        }
-      },
-      {
-        "use": "old",
-        "type": "physical",
-        "line": [
-          "456 Oak Ave"
-        ],
-        "city": "Oldville",
-        "state": "NY",
-        "postalCode": "10001",
-        "country": "USA",
-        "period": {
-          "start": "2000-01-01",
-          "end": "2014-12-31"
-        }
-      }
-    ],
-    "maritalStatus": {
-      "coding": [
-        {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
-          "code": "M",
-          "display": "Married"
-        }
-      ],
-      "text": "Married"
-    },
-    "multipleBirthBoolean": false,
-    "photo": [
-      {
-        "contentType": "image/jpeg",
-        "url": "Binary/patient-jane-smith-photo",
-        "title": "Patient Photo - Jane Smith",
-        "creation": "2023-01-15T10:30:00Z"
-      }
-    ],
-    "contact": [
-      {
-        "relationship": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
-                "code": "N",
-                "display": "Next-of-Kin"
-              }
-            ],
-            "text": "Next-of-Kin"
-          },
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/patient-contact-relationship",
-                "code": "partner",
-                "display": "Partner"
-              }
-            ],
-            "text": "Partner"
-          }
-        ],
-        "name": {
-          "use": "official",
-          "family": "Smith",
-          "given": [
-            "John",
-            "David"
-          ],
-          "prefix": [
-            "Mr."
-          ]
-        },
-        "telecom": [
-          {
-            "system": "phone",
-            "value": "555-222-3333",
-            "use": "work"
-          },
-          {
-            "system": "email",
-            "value": "john.smith@example.com",
-            "use": "home"
-          }
-        ],
-        "address": {
-          "use": "home",
-          "line": [
-            "123 Main St",
-            "Apt 4B"
-          ],
-          "city": "Anytown",
-          "state": "CA",
-          "postalCode": "90210",
-          "country": "USA"
-        },
-        "gender": "male",
-        "period": {
-          "start": "2010-01-01"
-        }
-      }
-    ],
-    "communication": [
-      {
-        "language": {
-          "coding": [
-            {
-              "system": "urn:ietf:bcp:47",
-              "code": "en",
-              "display": "English"
-            }
-          ],
-          "text": "English"
-        },
-        "preferred": true
-      },
-      {
-        "language": {
-          "coding": [
-            {
-              "system": "urn:ietf:bcp:47",
-              "code": "es",
-              "display": "Spanish"
-            }
-          ],
-          "text": "Spanish"
-        },
-        "preferred": false
-      }
-    ],
-    "generalPractitioner": [
-      {
-        "reference": "Practitioner/example-dr-jones",
-        "display": "Dr. Alice Jones"
-      },
-      {
-        "reference": "Organization/example-family-clinic",
-        "display": "Family Care Clinic"
-      }
-    ],
-    "managingOrganization": {
-      "reference": "Organization/example-hospital",
-      "display": "Example General Hospital"
-    },
-    "link": [
-      {
-        "other": {
-          "reference": "Patient/example-previous-record",
-          "display": "Jane Doe (Previous Record)"
-        },
-        "type": "replaces"
-      }
+  "resourceType": "Patient",
+  "meta": {
+    "profile": [
+      "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"
     ]
-  }
+  },
+  "extension": [
+    {
+      "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people",
+      "valueBoolean": false
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-nationality|5.2.0",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166:-1",
+            "code": "PHL",
+            "display": "Filipino"
+          }
+        ]
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-religion|5.2.0",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+            "code": "1001",
+            "display": "Catholic"
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/occupation",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-Job",
+            "code": "2211",
+            "display": "University and higher education teachers"
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/educational-attainment",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/ph-educational-attainment",
+            "code": "PGD",
+            "display": "Post Graduate Degree"
+          }
+        ]
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "use": "official",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "PPN",
+            "display": "Passport number"
+          }
+        ],
+        "text": "Passport Number"
+      },
+      "system": "http://hl7.org/fhir/sid/passport",
+      "value": "E1234567"
+    },
+    {
+      "extension": [
+        {
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-philhealth-id",
+          "valueCoding": {
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/ph-id-type",
+            "code": "PHC",
+            "display": "PhilHealth Card"
+          }
+        }
+      ],
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MC",
+            "display": "Medical record number"
+          }
+        ],
+        "text": "PhilHealth ID"
+      },
+      "system": "https://www.philhealth.gov.ph",
+      "value": "010000000000"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "family": "Dela Cruz",
+      "given": [
+        "Juan",
+        "Ramon"
+      ],
+      "prefix": [
+        "Mr."
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "09171234567",
+      "use": "mobile"
+    },
+    {
+      "system": "email",
+      "value": "juan.delacruz@example.com",
+      "use": "home"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1980-05-15",
+  "maritalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/marital-status",
+        "code": "M",
+        "display": "Married"
+      }
+    ],
+    "text": "Married"
+  },
+  "address": [
+    {
+      "extension": [
+        {
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-province",
+          "valueCoding": {
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/ph-psgc-codes",
+            "code": "043400000",
+            "display": "CAVITE"
+          }
+        },
+        {
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-municipality-city",
+          "valueCoding": {
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/ph-psgc-codes",
+            "code": "043403000",
+            "display": "Bacoor City"
+          }
+        },
+        {
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-barangay",
+          "valueCoding": {
+            "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/ph-psgc-codes",
+            "code": "043403027",
+            "display": "Mambog I"
+          }
+        }
+      ],
+      "use": "home",
+      "type": "physical",
+      "line": [
+        "123 Sampaguita St."
+      ],
+      "city": "Bacoor City",
+      "district": "Bacoor District",
+      "state": "Cavite",
+      "postalCode": "4102",
+      "country": "PHL"
+    }
+  ],
+  "communication": [
+    {
+      "language": {
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "fil",
+            "display": "Filipino"
+          }
+        ],
+        "text": "Filipino"
+      },
+      "preferred": true
+    },
+    {
+      "language": {
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "en",
+            "display": "English"
+          }
+        ],
+        "text": "English"
+      },
+      "preferred": false
+    }
+  ]
+}
