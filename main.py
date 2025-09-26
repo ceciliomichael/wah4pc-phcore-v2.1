@@ -1,6 +1,7 @@
 """FHIR Validation Server - Main application entry point."""
 
 import logging
+import os
 import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
@@ -21,6 +22,35 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+# Get server configuration from environment
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+SERVER_URL = os.getenv("SERVER_URL", f"http://localhost:{DEFAULT_PORT}")
+
+# Configure servers based on environment
+def get_server_config():
+    """Get server configuration based on environment."""
+    servers = []
+    
+    if ENVIRONMENT == "production":
+        # Production server
+        servers.append({
+            "url": SERVER_URL,
+            "description": "Production server"
+        })
+        # Also include localhost for local testing
+        servers.append({
+            "url": f"http://localhost:{DEFAULT_PORT}",
+            "description": "Local development server"
+        })
+    else:
+        # Development server
+        servers.append({
+            "url": f"http://localhost:{DEFAULT_PORT}",
+            "description": "Development server"
+        })
+    
+    return servers
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -49,12 +79,7 @@ app = FastAPI(
         "name": "MIT License",
         "url": "https://opensource.org/licenses/MIT",
     },
-    servers=[
-        {
-            "url": f"http://localhost:{DEFAULT_PORT}",
-            "description": "Development server"
-        }
-    ]
+    servers=get_server_config()
 )
 
 # Add CORS middleware

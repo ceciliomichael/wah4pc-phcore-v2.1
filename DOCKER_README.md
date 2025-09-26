@@ -22,9 +22,9 @@ This guide explains how to containerize and deploy the FHIR Validation Server us
    ```
 
 3. **Access the application:**
-   - Web Interface: http://https://wah4pc-validation.echosphere.cfd
-   - API Documentation: http://https://wah4pc-validation.echosphere.cfd/docs
-   - Health Check: http://https://wah4pc-validation.echosphere.cfd/docs
+   - Web Interface: http://localhost:6789 (dev) / https://wah4pc-validation.echosphere.cfd (prod)
+   - API Documentation: http://localhost:6789/docs (dev) / https://wah4pc-validation.echosphere.cfd/docs (prod)
+   - Health Check: http://localhost:6789/docs (dev) / https://wah4pc-validation.echosphere.cfd/docs (prod)
 
 ### Production Environment
 
@@ -87,6 +87,9 @@ The application supports the following environment variables:
 - `PORT`: Server port (default: `6789`)
 - `ENVIRONMENT`: Runtime environment (`development`/`production`)
 - `LOG_LEVEL`: Logging level (`debug`/`info`/`warning`/`error`)
+- `SERVER_URL`: Production server URL for OpenAPI docs (default: `http://localhost:6789`)
+
+**Note**: When `ENVIRONMENT=production` and `SERVER_URL` is set, the `/docs` endpoint will show your production URL as the primary server, with localhost as a secondary option for local testing.
 
 ### Volume Mounts
 
