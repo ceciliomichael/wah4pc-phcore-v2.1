@@ -1,0 +1,640 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation - Information{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <a href="/api/docs" class="text-blue-600 hover:text-blue-800 focus:outline-none mr-3">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <h1 class="text-3xl font-bold text-gray-900">Information</h1>
+            </div>
+            <p class="text-gray-600">Resource information endpoints for discovering available FHIR and PH-Core resources.</p>
+        </div>
+
+        <!-- Resource Types -->
+        <section id="resource-types" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="database" class="w-6 h-6 mr-3"></i>
+                Get Supported Resource Types
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mr-3">GET</span>
+                    <code class="text-gray-700 font-mono">/resource-types</code>
+                </div>
+                <p class="text-gray-600">Returns a list of all supported FHIR resource types available for validation.</p>
+            </div>
+
+            <!-- Language Examples Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-200">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('resource-types', 'python')">Python</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('resource-types', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('resource-types', 'curl')">cURL</button>
+                </div>
+
+                <!-- Python Example -->
+                <div id="resource-types-python" class="example-content">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">import requests
+
+url = "https://wah4pc-validation.echosphere.cfd/api/v1/resource-types"
+
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+    
+    resource_types = response.json()
+    
+    print(f"Supported Resource Types ({len(resource_types)}):")
+    for resource_type in sorted(resource_types):
+        print(f"  - {resource_type}")
+        
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Node.js Example -->
+                <div id="resource-types-nodejs" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">const fetch = require('node-fetch');
+
+const url = "https://wah4pc-validation.echosphere.cfd/api/v1/resource-types";
+
+async function getResourceTypes() {
+    try {
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const resourceTypes = await response.json();
+        
+        console.log(`Supported Resource Types (${resourceTypes.length}):`);
+        resourceTypes.sort().forEach(resourceType => {
+            console.log(`  - ${resourceType}`);
+        });
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+getResourceTypes();</code></pre>
+                    </div>
+                </div>
+
+                <!-- cURL Example -->
+                <div id="resource-types-curl" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/api/v1/resource-types"</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FHIR Base Resources -->
+        <section id="fhir-base-resources" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="archive" class="w-6 h-6 mr-3"></i>
+                Get FHIR Base Resources
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mr-3">GET</span>
+                    <code class="text-gray-700 font-mono">/resources/fhir-base</code>
+                </div>
+                <p class="text-gray-600">Returns a comprehensive list of all available FHIR base resource definitions including StructureDefinitions, ValueSets, and CodeSystems from the FHIR R4 specification.</p>
+            </div>
+
+            <!-- Language Examples Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-200">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('fhir-base-resources', 'python')">Python</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('fhir-base-resources', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('fhir-base-resources', 'curl')">cURL</button>
+                </div>
+
+                <!-- Python Example -->
+                <div id="fhir-base-resources-python" class="example-content">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">import requests
+import json
+
+url = "https://wah4pc-validation.echosphere.cfd/api/v1/resources/fhir-base"
+
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+    
+    fhir_resources = response.json()
+    
+    print(f"FHIR Base Resources ({len(fhir_resources)}):")
+    
+    # Group by resource type
+    by_type = {}
+    for resource in fhir_resources:
+        resource_type = resource.get('resourceType', 'Unknown')
+        if resource_type not in by_type:
+            by_type[resource_type] = []
+        by_type[resource_type].append(resource)
+    
+    # Display organized list
+    for resource_type, resources in sorted(by_type.items()):
+        print(f"\n{resource_type} ({len(resources)}):")
+        for resource in resources:
+            print(f"  - {resource.get('name', resource.get('id', 'Unknown'))}")
+            if resource.get('description'):
+                print(f"    Description: {resource['description'][:100]}...")
+            if resource.get('url'):
+                print(f"    URL: {resource['url']}")
+        
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Node.js Example -->
+                <div id="fhir-base-resources-nodejs" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">const fetch = require('node-fetch');
+
+const url = "https://wah4pc-validation.echosphere.cfd/api/v1/resources/fhir-base";
+
+async function getFHIRBaseResources() {
+    try {
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const fhirResources = await response.json();
+        
+        console.log(`FHIR Base Resources (${fhirResources.length}):`);
+        
+        // Group by resource type
+        const byType = {};
+        fhirResources.forEach(resource => {
+            const resourceType = resource.resourceType || 'Unknown';
+            if (!byType[resourceType]) {
+                byType[resourceType] = [];
+            }
+            byType[resourceType].push(resource);
+        });
+        
+        // Display organized list
+        Object.keys(byType).sort().forEach(resourceType => {
+            const resources = byType[resourceType];
+            console.log(`\n${resourceType} (${resources.length}):`);
+            resources.forEach(resource => {
+                console.log(`  - ${resource.name || resource.id || 'Unknown'}`);
+                if (resource.description) {
+                    console.log(`    Description: ${resource.description.substring(0, 100)}...`);
+                }
+                if (resource.url) {
+                    console.log(`    URL: ${resource.url}`);
+                }
+            });
+        });
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+getFHIRBaseResources();</code></pre>
+                    </div>
+                </div>
+
+                <!-- cURL Example -->
+                <div id="fhir-base-resources-curl" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/api/v1/resources/fhir-base"</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PH-Core Resources -->
+        <section id="ph-core-resources" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="package" class="w-6 h-6 mr-3"></i>
+                Get PH-Core Resources
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mr-3">GET</span>
+                    <code class="text-gray-700 font-mono">/resources/ph-core</code>
+                </div>
+                <p class="text-gray-600 mb-4">Returns a comprehensive list of all available PH-Core Implementation Guide resources including StructureDefinitions, ValueSets, CodeSystems, and NamingSystems specific to Philippines Healthcare.</p>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p class="text-blue-800 text-sm"><strong>Note:</strong> These resources define the Philippines-specific profiles, extensions, and terminologies for FHIR resources used in Philippine healthcare systems.</p>
+                </div>
+            </div>
+
+            <!-- Language Examples Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-200">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('ph-core-resources', 'python')">Python</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('ph-core-resources', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('ph-core-resources', 'curl')">cURL</button>
+                </div>
+
+                <!-- Python Example -->
+                <div id="ph-core-resources-python" class="example-content">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">import requests
+import json
+
+url = "https://wah4pc-validation.echosphere.cfd/api/v1/resources/ph-core"
+
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+    
+    ph_core_resources = response.json()
+    
+    print(f"PH-Core Resources ({len(ph_core_resources)}):")
+    
+    # Group by resource type
+    by_type = {}
+    for resource in ph_core_resources:
+        resource_type = resource.get('resourceType', 'Unknown')
+        if resource_type not in by_type:
+            by_type[resource_type] = []
+        by_type[resource_type].append(resource)
+    
+    # Display organized list
+    for resource_type, resources in sorted(by_type.items()):
+        print(f"\n{resource_type} ({len(resources)}):")
+        for resource in resources:
+            print(f"  - {resource.get('name', resource.get('id', 'Unknown'))}")
+            if resource.get('title'):
+                print(f"    Title: {resource['title']}")
+            if resource.get('description'):
+                print(f"    Description: {resource['description'][:100]}...")
+            if resource.get('url'):
+                print(f"    URL: {resource['url']}")
+            if resource.get('baseDefinition'):
+                print(f"    Base: {resource['baseDefinition']}")
+        
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Node.js Example -->
+                <div id="ph-core-resources-nodejs" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">const fetch = require('node-fetch');
+
+const url = "https://wah4pc-validation.echosphere.cfd/api/v1/resources/ph-core";
+
+async function getPHCoreResources() {
+    try {
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const phCoreResources = await response.json();
+        
+        console.log(`PH-Core Resources (${phCoreResources.length}):`);
+        
+        // Group by resource type
+        const byType = {};
+        phCoreResources.forEach(resource => {
+            const resourceType = resource.resourceType || 'Unknown';
+            if (!byType[resourceType]) {
+                byType[resourceType] = [];
+            }
+            byType[resourceType].push(resource);
+        });
+        
+        // Display organized list
+        Object.keys(byType).sort().forEach(resourceType => {
+            const resources = byType[resourceType];
+            console.log(`\n${resourceType} (${resources.length}):`);
+            resources.forEach(resource => {
+                console.log(`  - ${resource.name || resource.id || 'Unknown'}`);
+                if (resource.title) {
+                    console.log(`    Title: ${resource.title}`);
+                }
+                if (resource.description) {
+                    console.log(`    Description: ${resource.description.substring(0, 100)}...`);
+                }
+                if (resource.url) {
+                    console.log(`    URL: ${resource.url}`);
+                }
+                if (resource.baseDefinition) {
+                    console.log(`    Base: ${resource.baseDefinition}`);
+                }
+            });
+        });
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+getPHCoreResources();</code></pre>
+                    </div>
+                </div>
+
+                <!-- cURL Example -->
+                <div id="ph-core-resources-curl" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/api/v1/resources/ph-core"</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resource Profile -->
+        <section id="resource-profile" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="file-text" class="w-6 h-6 mr-3"></i>
+                Get Resource Profile
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mr-3">GET</span>
+                    <code class="text-gray-700 font-mono">/profile/{resource_type}</code>
+                </div>
+                <p class="text-gray-600">Returns the FHIR profile definition for a specific resource type.</p>
+            </div>
+
+            <!-- Language Examples Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-200">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('resource-profile', 'python')">Python</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('resource-profile', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('resource-profile', 'curl')">cURL</button>
+                </div>
+
+                <!-- Python Example -->
+                <div id="resource-profile-python" class="example-content">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">import requests
+import json
+
+resource_type = "Patient"  # Change to desired resource type
+url = f"https://wah4pc-validation.echosphere.cfd/api/v1/profile/{resource_type}"
+
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+    
+    profile = response.json()
+    
+    print(f"Profile for {resource_type}:")
+    print(f"  Resource Type: {profile.get('resourceType')}")
+    print(f"  URL: {profile.get('url')}")
+    print(f"  Status: {profile.get('status')}")
+    print(f"  Kind: {profile.get('kind')}")
+    print(f"  Type: {profile.get('type')}")
+    print(f"  Base Definition: {profile.get('baseDefinition')}")
+    
+    # Print full profile as JSON (optional)
+    # print(json.dumps(profile, indent=2))
+        
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Node.js Example -->
+                <div id="resource-profile-nodejs" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">const fetch = require('node-fetch');
+
+const resourceType = "Patient"; // Change to desired resource type
+const url = `https://wah4pc-validation.echosphere.cfd/api/v1/profile/${resourceType}`;
+
+async function getResourceProfile() {
+    try {
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const profile = await response.json();
+        
+        console.log(`Profile for ${resourceType}:`);
+        console.log(`  Resource Type: ${profile.resourceType}`);
+        console.log(`  URL: ${profile.url}`);
+        console.log(`  Status: ${profile.status}`);
+        console.log(`  Kind: ${profile.kind}`);
+        console.log(`  Type: ${profile.type}`);
+        console.log(`  Base Definition: ${profile.baseDefinition}`);
+        
+        // Print full profile as JSON (optional)
+        // console.log(JSON.stringify(profile, null, 2));
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+getResourceProfile();</code></pre>
+                    </div>
+                </div>
+
+                <!-- cURL Example -->
+                <div id="resource-profile-curl" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/api/v1/profile/Patient"</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Server Info -->
+        <section id="server-info" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="server" class="w-6 h-6 mr-3"></i>
+                Server Information
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mr-3">GET</span>
+                    <code class="text-gray-700 font-mono">/server-info</code>
+                </div>
+                <p class="text-gray-600">Returns information about the FHIR validation server including version, supported formats, and operations.</p>
+            </div>
+
+            <!-- Language Examples Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-200">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('server-info', 'python')">Python</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('server-info', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('server-info', 'curl')">cURL</button>
+                </div>
+
+                <!-- Python Example -->
+                <div id="server-info-python" class="example-content">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">import requests
+
+url = "https://wah4pc-validation.echosphere.cfd/api/v1/server-info"
+
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+    
+    server_info = response.json()
+    
+    print("Server Information:")
+    print(f"  Name: {server_info['name']}")
+    print(f"  Version: {server_info['version']}")
+    print(f"  Description: {server_info['description']}")
+    print(f"  FHIR Version: {server_info['fhir_version']}")
+    print(f"  Supported Formats: {', '.join(server_info['supported_formats'])}")
+    print(f"  Supported Operations: {', '.join(server_info['supported_operations'])}")
+        
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Node.js Example -->
+                <div id="server-info-nodejs" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">const fetch = require('node-fetch');
+
+const url = "https://wah4pc-validation.echosphere.cfd/api/v1/server-info";
+
+async function getServerInfo() {
+    try {
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const serverInfo = await response.json();
+        
+        console.log("Server Information:");
+        console.log(`  Name: ${serverInfo.name}`);
+        console.log(`  Version: ${serverInfo.version}`);
+        console.log(`  Description: ${serverInfo.description}`);
+        console.log(`  FHIR Version: ${serverInfo.fhir_version}`);
+        console.log(`  Supported Formats: ${serverInfo.supported_formats.join(', ')}`);
+        console.log(`  Supported Operations: ${serverInfo.supported_operations.join(', ')}`);
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+getServerInfo();</code></pre>
+                    </div>
+                </div>
+
+                <!-- cURL Example -->
+                <div id="server-info-curl" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/api/v1/server-info"</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example Response -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Example Response</h3>
+                <div class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto">
+                    <pre><code class="text-sm">{
+  "name": "FHIR Validation Server",
+  "version": "2.1.0",
+  "description": "Universal FHIR validation server with PH-Core Implementation Guide support",
+  "fhir_version": "R4",
+  "supported_formats": [
+    "application/fhir+json",
+    "application/json"
+  ],
+  "supported_operations": [
+    "validate-standard",
+    "validate-ph-core", 
+    "batch-validate",
+    "resource-info",
+    "fhir-base-resources",
+    "ph-core-resources"
+  ]
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center pt-8 border-t border-gray-200">
+            <a href="/api/docs/validation" class="flex items-center text-gray-600 hover:text-blue-600 focus:outline-none">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+                Previous: Validation
+            </a>
+            <a href="/api/docs/health" class="flex items-center text-blue-600 hover:text-blue-800 focus:outline-none">
+                Next: Health & Status
+                <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to show different language examples
+    function showExample(sectionId, language) {
+        // Hide all examples for this section
+        const examples = document.querySelectorAll(`[id^="${sectionId}-"]`);
+        examples.forEach(example => {
+            if (example.classList.contains('example-content')) {
+                example.classList.add('hidden');
+            }
+        });
+        
+        // Show the selected example
+        const selectedExample = document.getElementById(`${sectionId}-${language}`);
+        if (selectedExample) {
+            selectedExample.classList.remove('hidden');
+        }
+        
+        // Update tab styling
+        const section = document.getElementById(sectionId);
+        if (section) {
+            const tabContainer = section.querySelector('.flex.border-b');
+            if (tabContainer) {
+                const tabs = tabContainer.querySelectorAll('button');
+                tabs.forEach(tab => {
+                    tab.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+                    tab.classList.add('text-gray-500', 'hover:text-gray-700');
+                });
+                
+                // Style the active tab
+                const activeTab = [...tabs].find(tab => tab.textContent.trim() === language || 
+                                                (language === 'nodejs' && tab.textContent.trim() === 'Node.js') ||
+                                                (language === 'curl' && tab.textContent.trim() === 'cURL'));
+                if (activeTab) {
+                    activeTab.classList.remove('text-gray-500', 'hover:text-gray-700');
+                    activeTab.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+                }
+            }
+        }
+    }
+    
+    // Initialize first examples to be visible
+    document.addEventListener('DOMContentLoaded', function() {
+        const sections = ['resource-types', 'fhir-base-resources', 'ph-core-resources', 'resource-profile', 'server-info'];
+        sections.forEach(section => {
+            showExample(section, 'python');
+        });
+    });
+</script>
+{% endblock %}

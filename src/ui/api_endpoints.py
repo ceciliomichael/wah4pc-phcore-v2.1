@@ -14,6 +14,7 @@ from src.types.fhir_types import (
 )
 from src.utils.fhir_validator import fhir_validator
 from src.lib.resource_loader import resource_loader
+from src.ui.web_endpoints import FHIRResourceBrowser
 from src.constants.fhir_constants import (
     SERVER_NAME, SERVER_VERSION, SERVER_DESCRIPTION,
     HTTP_400_BAD_REQUEST, HTTP_422_UNPROCESSABLE_ENTITY,
@@ -372,7 +373,7 @@ async def get_server_info() -> ServerInfo:
         description=SERVER_DESCRIPTION,
         fhir_version="R4",
         supported_formats=[CONTENT_TYPE_FHIR_JSON, "application/json"],
-        supported_operations=["validate-standard", "validate-ph-core", "batch-validate", "resource-info"]
+        supported_operations=["validate-standard", "validate-ph-core", "batch-validate", "resource-info", "fhir-base-resources", "ph-core-resources"]
     )
 
 
@@ -410,4 +411,163 @@ async def health_check() -> HealthStatus:
             timestamp=datetime.now().isoformat(),
             version=SERVER_VERSION,
             uptime_seconds=0
+        )
+
+
+# Create global resource browser instance
+resource_browser = FHIRResourceBrowser()
+
+
+@router.get(
+    "/resources/fhir-base",
+    response_model=List[Dict[str, Any]],
+    summary="Get FHIR Base Resources List",
+    description="Returns a list of all available FHIR base resource definitions including StructureDefinitions, ValueSets, and CodeSystems",
+    tags=["FHIR Base Resources"]
+)
+async def get_fhir_base_resources() -> List[Dict[str, Any]]:
+    """Get list of all FHIR base resources.
+    
+    Returns:
+        List of FHIR base resource definitions with metadata
+        
+    Raises:
+        HTTPException: If error retrieving resources
+    """
+    try:
+        resources_list = []
+        
+        # Get organized resource types from the browser
+        resource_types = resource_browser.get_resource_types()
+        fhir_base_names = resource_types.get("fhir_base", [])
+        
+        # Get the actual resources from the browser
+        for resource_name in fhir_base_names:
+            resource = resource_browser._fhir_base_resources.get(resource_name)
+            if resource:
+                # Create metadata for the resource
+                resource_info = {
+                    "id": resource_name,
+                    "resourceType": resource.get("resourceType", "Unknown"),
+                    "url": resource.get("url"),
+                    "name": resource.get("name"),
+                    "title": resource.get("title"),
+                    "status": resource.get("status"),
+                    "version": resource.get("version"),
+                    "description": resource.get("description"),
+                    "type": resource.get("type"),  # For StructureDefinitions
+                    "kind": resource.get("kind"),  # For StructureDefinitions
+                    "abstract": resource.get("abstract"),
+                    "context": resource.get("context"),
+                    "purpose": resource.get("purpose")
+                }
+                
+                # Remove None values to keep response clean
+                resource_info = {k: v for k, v in resource_info.items() if v is not None}
+                resources_list.append(resource_info)
+        
+        # Sort by resource type and then by name for consistent ordering
+        resources_list.sort(key=lambda x: (x.get("resourceType", ""), x.get("name", "")))
+        
+        logger.info(f"Retrieved {len(resources_list)} FHIR base resources")
+        return resources_list
+        
+    except Exception as e:
+        logger.error(f"Error retrieving FHIR base resources: {e}")
+        raise HTTPException(
+            status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error retrieving FHIR base resources"
+        )
+
+
+@router.get(
+    "/resources/ph-core",
+    response_model=List[Dict[str, Any]],
+    summary="Get PH-Core Resources List",
+    description="Returns a list of all available PH-Core Implementation Guide resources including StructureDefinitions, ValueSets, CodeSystems, and NamingSystems",
+    tags=["PH-Core Resources"]
+)
+async def get_ph_core_resources() -> List[Dict[str, Any]]:
+    """Get list of all PH-Core IG resources.
+    
+    Returns:
+        List of PH-Core resource definitions with metadata
+        
+    Raises:
+        HTTPException: If error retrieving resources
+    """
+    try:
+        resources_list = []
+        
+        # Get organized resource types from the browser
+        resource_types = resource_browser.get_resource_types()
+        ph_core_by_type = resource_types.get("ph_core", {})
+        
+        # Get the actual resources from the browser
+        for resource_type, resource_names in ph_core_by_type.items():
+            for resource_name in resource_names:
+                resource = resource_browser._ph_core_resources.get(resource_name)
+                if resource:
+                    # Create metadata for the resource
+                    resource_info = {
+                        "id": resource_name,
+                        "resourceType": resource.get("resourceType", "Unknown"),
+                        "url": resource.get("url"),
+                        "name": resource.get("name"),
+                        "title": resource.get("title"),
+                        "status": resource.get("status"),
+                        "version": resource.get("version"),
+                        "description": resource.get("description"),
+                        "type": resource.get("type"),  # For StructureDefinitions
+                        "kind": resource.get("kind"),  # For StructureDefinitions
+                        "abstract": resource.get("abstract"),
+                        "context": resource.get("context"),
+                        "purpose": resource.get("purpose"),
+                        "baseDefinition": resource.get("baseDefinition"),  # For profiles
+                        "derivation": resource.get("derivation"),  # For profiles
+                        "experimental": resource.get("experimental"),
+                        "jurisdiction": resource.get("jurisdiction"),
+                        "publisher": resource.get("publisher"),
+                        "contact": resource.get("contact")
+                    }
+                    
+                    # Add specific fields for different resource types
+                    if resource.get("resourceType") == "ValueSet":
+                        resource_info.update({
+                            "compose": resource.get("compose"),
+                            "expansion": resource.get("expansion"),
+                            "immutable": resource.get("immutable")
+                        })
+                    elif resource.get("resourceType") == "CodeSystem":
+                        resource_info.update({
+                            "count": resource.get("count"),
+                            "content": resource.get("content"),
+                            "caseSensitive": resource.get("caseSensitive"),
+                            "hierarchyMeaning": resource.get("hierarchyMeaning"),
+                            "compositional": resource.get("compositional"),
+                            "versionNeeded": resource.get("versionNeeded")
+                        })
+                    elif resource.get("resourceType") == "NamingSystem":
+                        resource_info.update({
+                            "uniqueId": resource.get("uniqueId"),
+                            "responsible": resource.get("responsible"),
+                            "type": resource.get("type"),
+                            "usage": resource.get("usage")
+                        })
+                    
+                    # Remove None values to keep response clean
+                    resource_info = {k: v for k, v in resource_info.items() if v is not None}
+                    resources_list.append(resource_info)
+        
+        # Sort by resource type and then by name for consistent ordering
+        resources_list.sort(key=lambda x: (x.get("resourceType", ""), x.get("name", "")))
+        
+        logger.info(f"Retrieved {len(resources_list)} PH-Core resources")
+        return resources_list
+        
+    except Exception as e:
+        logger.error(f"Error retrieving PH-Core resources: {e}")
+        raise HTTPException(
+            status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error retrieving PH-Core resources"
         )

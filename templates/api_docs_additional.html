@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation - Additional Resources{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <a href="/api/docs" class="text-blue-600 hover:text-blue-800 focus:outline-none mr-3">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <h1 class="text-3xl font-bold text-gray-900">Additional Resources</h1>
+            </div>
+            <p class="text-gray-600">Error handling, rate limiting, and external documentation links.</p>
+        </div>
+
+        <!-- Error Handling -->
+        <section id="error-handling" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="alert-triangle" class="w-6 h-6 mr-3"></i>
+                Error Handling
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <p class="text-gray-600 mb-4">The API uses conventional HTTP response codes to indicate the success or failure of requests.</p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-medium">200</span>
+                        <div>
+                            <p class="font-medium text-gray-900">OK</p>
+                            <p class="text-sm text-gray-600">Request successful</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">400</span>
+                        <div>
+                            <p class="font-medium text-gray-900">Bad Request</p>
+                            <p class="text-sm text-gray-600">Invalid request payload or parameters</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">404</span>
+                        <div>
+                            <p class="font-medium text-gray-900">Not Found</p>
+                            <p class="text-sm text-gray-600">Resource or endpoint not found</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">422</span>
+                        <div>
+                            <p class="font-medium text-gray-900">Unprocessable Entity</p>
+                            <p class="text-sm text-gray-600">Request payload validation failed</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">500</span>
+                        <div>
+                            <p class="font-medium text-gray-900">Internal Server Error</p>
+                            <p class="text-sm text-gray-600">Server encountered an error processing the request</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Response Format -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Error Response Format</h3>
+                <div class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto">
+                    <pre><code class="text-sm">{
+  "detail": "Error message describing what went wrong",
+  "status_code": 400,
+  "error_type": "validation_error"
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Error Handling Best Practices -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Error Handling Best Practices</h3>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <ul class="space-y-2 text-yellow-800">
+                        <li class="flex items-start space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 mt-0.5 text-yellow-600"></i>
+                            <span>Always check the HTTP status code before processing response data</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 mt-0.5 text-yellow-600"></i>
+                            <span>Implement retry logic for 5xx server errors with exponential backoff</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 mt-0.5 text-yellow-600"></i>
+                            <span>Parse error responses to get detailed error information</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 mt-0.5 text-yellow-600"></i>
+                            <span>Log errors appropriately for debugging and monitoring</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rate Limiting -->
+        <section id="rate-limiting" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="clock" class="w-6 h-6 mr-3"></i>
+                Rate Limiting
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <p class="text-gray-600 mb-4">Currently, the API does not implement rate limiting, but reasonable usage is expected.</p>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+                        <span class="text-gray-700">Batch validation limited to 100 resources per request</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+                        <span class="text-gray-700">No authentication required for public access</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="info" class="w-5 h-5 text-blue-500"></i>
+                        <span class="text-gray-700">Please use the API responsibly to ensure availability for all users</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h4 class="font-medium text-blue-900 mb-2">Usage Guidelines</h4>
+                    <ul class="space-y-1 text-sm text-blue-800">
+                        <li>• Avoid making unnecessary duplicate requests</li>
+                        <li>• Implement client-side caching where appropriate</li>
+                        <li>• Use batch validation for multiple resources when possible</li>
+                        <li>• Consider implementing client-side request throttling</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- External Resources -->
+        <section id="external-resources" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="external-link" class="w-6 h-6 mr-3"></i>
+                External Resources
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-3 flex items-center">
+                        <i data-lucide="book" class="w-5 h-5 mr-2"></i>
+                        FHIR Documentation
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://hl7.org/fhir/R4/" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">FHIR R4 Specification</a></li>
+                        <li><a href="https://hl7.org/fhir/R4/resourcelist.html" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">FHIR Resource List</a></li>
+                        <li><a href="https://hl7.org/fhir/R4/validation.html" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">FHIR Validation Guide</a></li>
+                        <li><a href="https://hl7.org/fhir/R4/extensibility.html" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">FHIR Extensibility</a></li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-3 flex items-center">
+                        <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i>
+                        PH-Core Resources
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/resources/ph_core" class="text-blue-600 hover:text-blue-800 focus:outline-none">Browse PH-Core Profiles</a></li>
+                        <li><a href="/resources/examples" class="text-blue-600 hover:text-blue-800 focus:outline-none">Example Resources</a></li>
+                        <li><a href="/docs" class="text-blue-600 hover:text-blue-800 focus:outline-none">Swagger Documentation</a></li>
+                        <li><a href="/resources/examples" class="text-blue-600 hover:text-blue-800 focus:outline-none">Sample FHIR Resources</a></li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-3 flex items-center">
+                        <i data-lucide="globe" class="w-5 h-5 mr-2"></i>
+                        Philippines Standards
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://psa.gov.ph/classification/psgc/" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">Philippine Standard Geographic Code (PSGC)</a></li>
+                        <li><a href="https://www.doh.gov.ph/" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">Department of Health Philippines</a></li>
+                        <li><a href="https://ncip.gov.ph/" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">National Commission on Indigenous Peoples</a></li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-3 flex items-center">
+                        <i data-lucide="code" class="w-5 h-5 mr-2"></i>
+                        Development Tools
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://simplifier.net/" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">Simplifier.net FHIR Registry</a></li>
+                        <li><a href="https://www.hl7.org/fhir/validator/" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">Official FHIR Validator</a></li>
+                        <li><a href="https://github.com/hapifhir/hapi-fhir" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">HAPI FHIR Library</a></li>
+                        <li><a href="https://fshschool.org/" class="text-blue-600 hover:text-blue-800 focus:outline-none" target="_blank">FSH School (FHIR Shorthand)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- API Support -->
+        <section id="api-support" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="help-circle" class="w-6 h-6 mr-3"></i>
+                API Support
+            </h2>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-3">Getting Help</h3>
+                        <p class="text-gray-600 text-sm mb-3">
+                            If you encounter issues or have questions about using the FHIR Validation API, 
+                            please check the following resources:
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 mt-0.5 text-green-500"></i>
+                                <span>Review the API documentation sections</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 mt-0.5 text-green-500"></i>
+                                <span>Check the example resources and code samples</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 mt-0.5 text-green-500"></i>
+                                <span>Test your requests using the health check endpoint</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-3">Best Practices</h3>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="lightbulb" class="w-4 h-4 mt-0.5 text-yellow-500"></i>
+                                <span>Always validate resources locally before sending to the API</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="lightbulb" class="w-4 h-4 mt-0.5 text-yellow-500"></i>
+                                <span>Use appropriate error handling and retry strategies</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="lightbulb" class="w-4 h-4 mt-0.5 text-yellow-500"></i>
+                                <span>Implement proper logging for debugging purposes</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="lightbulb" class="w-4 h-4 mt-0.5 text-yellow-500"></i>
+                                <span>Keep your FHIR knowledge up to date</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center pt-8 border-t border-gray-200">
+            <a href="/api/docs/ph-core-ig" class="flex items-center text-gray-600 hover:text-blue-600 focus:outline-none">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+                Previous: PH-Core IG
+            </a>
+            <a href="/api/docs" class="flex items-center text-blue-600 hover:text-blue-800 focus:outline-none">
+                Back to Index
+                <i data-lucide="home" class="w-4 h-4 ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

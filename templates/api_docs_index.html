@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-white">
+    <div class="max-w-6xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">API Documentation</h1>
+            <p class="text-xl text-gray-600">Complete guide to using the FHIR Validation API with examples in Python, Node.js, and REST.</p>
+        </div>
+
+        <!-- Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white border border-gray-200 rounded-lg p-6 text-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="check-circle" class="w-6 h-6 text-blue-600"></i>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">FHIR R4 Support</h3>
+                <p class="text-sm text-gray-600">Full validation against FHIR R4 (4.0.1) specification</p>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 text-center">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="shield-check" class="w-6 h-6 text-green-600"></i>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">PH-Core IG</h3>
+                <p class="text-sm text-gray-600">Philippines Healthcare Core Implementation Guide compliance</p>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 text-center">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="layers" class="w-6 h-6 text-purple-600"></i>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">Batch Processing</h3>
+                <p class="text-sm text-gray-600">Validate multiple resources in a single request</p>
+            </div>
+        </div>
+
+        <!-- Navigation Sections -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Overview Section -->
+            <a href="/api/docs/overview" class="group block bg-white border border-gray-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-md transition-all duration-200 focus:outline-none">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-200">
+                        <i data-lucide="book-open" class="w-5 h-5 text-blue-600"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-900 group-hover:text-blue-600">Overview</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Introduction, authentication, base URL, and response format details.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Introduction</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Authentication</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Base URL</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Response Format</span>
+                </div>
+            </a>
+
+            <!-- Validation Section -->
+            <a href="/api/docs/validation" class="group block bg-white border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-md transition-all duration-200 focus:outline-none">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-green-200">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-900 group-hover:text-green-600">Validation</h2>
+                </div>
+                <p class="text-gray-600 mb-4">FHIR validation endpoints with code examples for standard and PH-Core validation.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Standard FHIR</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">PH-Core</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Batch Validation</span>
+                </div>
+            </a>
+
+            <!-- Information Section -->
+            <a href="/api/docs/information" class="group block bg-white border border-gray-200 rounded-lg p-6 hover:border-purple-300 hover:shadow-md transition-all duration-200 focus:outline-none">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-purple-200">
+                        <i data-lucide="info" class="w-5 h-5 text-purple-600"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-900 group-hover:text-purple-600">Information</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Resource information endpoints for discovering available FHIR and PH-Core resources.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Resource Types</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">FHIR Base</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">PH-Core</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Server Info</span>
+                </div>
+            </a>
+
+            <!-- Health & Status Section -->
+            <a href="/api/docs/health" class="group block bg-white border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-md transition-all duration-200 focus:outline-none">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-red-200">
+                        <i data-lucide="heart" class="w-5 h-5 text-red-600"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-900 group-hover:text-red-600">Health & Status</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Server health check and monitoring endpoints.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Health Check</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Server Status</span>
+                </div>
+            </a>
+
+            <!-- PH-Core IG Section -->
+            <a href="/api/docs/ph-core-ig" class="group block bg-white border border-gray-200 rounded-lg p-6 hover:border-yellow-300 hover:shadow-md transition-all duration-200 focus:outline-none">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-yellow-200">
+                        <i data-lucide="map" class="w-5 h-5 text-yellow-600"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-900 group-hover:text-yellow-600">PH-Core IG</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Philippines Healthcare Core Implementation Guide resources and definitions.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Structure Definitions</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Value Sets</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Code Systems</span>
+                </div>
+            </a>
+
+            <!-- Additional Resources Section -->
+            <a href="/api/docs/additional" class="group block bg-white border border-gray-200 rounded-lg p-6 hover:border-indigo-300 hover:shadow-md transition-all duration-200 focus:outline-none">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-indigo-200">
+                        <i data-lucide="external-link" class="w-5 h-5 text-indigo-600"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-900 group-hover:text-indigo-600">Additional Resources</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Error handling, rate limiting, and external documentation links.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Error Handling</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Rate Limiting</span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">External Links</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Quick Access -->
+        <div class="mt-12 text-center">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Access</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://wah4pc-validation.echosphere.cfd/api/v1" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none transition-colors duration-200">
+                    API Base URL
+                </a>
+                <a href="/docs" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 focus:outline-none transition-colors duration-200">
+                    Swagger Docs
+                </a>
+                <a href="/resources/examples" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:outline-none transition-colors duration-200">
+                    Example Resources
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

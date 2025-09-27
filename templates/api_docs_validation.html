@@ -1,0 +1,663 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation - Validation{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <a href="/api/docs" class="text-blue-600 hover:text-blue-800 focus:outline-none mr-3">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <h1 class="text-3xl font-bold text-gray-900">Validation</h1>
+            </div>
+            <p class="text-gray-600">FHIR validation endpoints with code examples for standard and PH-Core validation.</p>
+        </div>
+
+        <!-- Standard FHIR Validation -->
+        <section id="validate-standard" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="check-circle" class="w-6 h-6 mr-3"></i>
+                Standard FHIR Validation
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mr-3">POST</span>
+                    <code class="text-gray-700 font-mono">/validate</code>
+                </div>
+                <p class="text-gray-600">Validates a FHIR resource against the base FHIR R4 specification only (no PH-Core requirements).</p>
+            </div>
+
+            <!-- Language Examples Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-200">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('validate-standard', 'python')">Python</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('validate-standard', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('validate-standard', 'curl')">cURL</button>
+                </div>
+
+                <!-- Python Example -->
+                <div id="validate-standard-python" class="example-content">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">import requests
+import json
+
+url = "https://wah4pc-validation.echosphere.cfd/api/v1/validate"
+
+# Example Patient resource
+patient_resource = {
+    "resourceType": "Patient",
+    "id": "example-patient",
+    "name": [
+        {
+            "use": "official",
+            "family": "Doe",
+            "given": ["John"]
+        }
+    ],
+    "gender": "male",
+    "birthDate": "1990-01-01"
+}
+
+# Validation request payload
+payload = {
+    "resource": patient_resource,
+    "validate_code_systems": True,
+    "validate_value_sets": True
+}
+
+headers = {
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, json=payload, headers=headers)
+    response.raise_for_status()
+    
+    result = response.json()
+    print(f"Validation Status: {result['validation_result']['status']}")
+    print(f"Valid: {result['validation_result']['valid']}")
+    print(f"Processing Time: {result['processing_time_ms']}ms")
+    
+    if result['validation_result']['issues']:
+        print("Validation Issues:")
+        for issue in result['validation_result']['issues']:
+            print(f"  - {issue['severity']}: {issue['details']}")
+            
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Node.js Example -->
+                <div id="validate-standard-nodejs" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">const fetch = require('node-fetch'); // or use built-in fetch in Node 18+
+
+const url = "https://wah4pc-validation.echosphere.cfd/api/v1/validate";
+
+// Example Patient resource
+const patientResource = {
+    resourceType: "Patient",
+    id: "example-patient",
+    name: [
+        {
+            use: "official",
+            family: "Doe",
+            given: ["John"]
+        }
+    ],
+    gender: "male",
+    birthDate: "1990-01-01"
+};
+
+// Validation request payload
+const payload = {
+    resource: patientResource,
+    validate_code_systems: true,
+    validate_value_sets: true
+};
+
+async function validateResource() {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        
+        console.log(`Validation Status: ${result.validation_result.status}`);
+        console.log(`Valid: ${result.validation_result.valid}`);
+        console.log(`Processing Time: ${result.processing_time_ms}ms`);
+        
+        if (result.validation_result.issues.length > 0) {
+            console.log("Validation Issues:");
+            result.validation_result.issues.forEach(issue => {
+                console.log(`  - ${issue.severity}: ${issue.details}`);
+            });
+        }
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+validateResource();</code></pre>
+                    </div>
+                </div>
+
+                <!-- cURL Example -->
+                <div id="validate-standard-curl" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">curl -X POST "https://wah4pc-validation.echosphere.cfd/api/v1/validate" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "resource": {
+      "resourceType": "Patient",
+      "id": "example-patient",
+      "name": [
+        {
+          "use": "official",
+          "family": "Doe",
+          "given": ["John"]
+        }
+      ],
+      "gender": "male",
+      "birthDate": "1990-01-01"
+    },
+    "validate_code_systems": true,
+    "validate_value_sets": true
+  }'</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PH-Core Validation -->
+        <section id="validate-ph-core" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="shield-check" class="w-6 h-6 mr-3"></i>
+                PH-Core Validation
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mr-3">POST</span>
+                    <code class="text-gray-700 font-mono">/validate/ph-core</code>
+                </div>
+                <p class="text-gray-600 mb-4">Validates a FHIR resource against BOTH FHIR R4 AND PH-Core Implementation Guide (STRICT COMPLIANCE REQUIRED).</p>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <p class="text-yellow-800 text-sm"><strong>Note:</strong> Resources that do not meet PH-Core requirements will FAIL validation.</p>
+                </div>
+            </div>
+
+            <!-- Language Examples Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-200">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('validate-ph-core', 'python')">Python</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('validate-ph-core', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('validate-ph-core', 'curl')">cURL</button>
+                </div>
+
+                <!-- Python Example -->
+                <div id="validate-ph-core-python" class="example-content">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">import requests
+import json
+
+url = "https://wah4pc-validation.echosphere.cfd/api/v1/validate/ph-core"
+
+# Example PH-Core compliant Patient resource
+ph_core_patient = {
+    "resourceType": "Patient",
+    "id": "ph-core-patient",
+    "meta": {
+        "profile": ["https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"]
+    },
+    "extension": [
+        {
+            "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people",
+            "valueBoolean": False
+        }
+    ],
+    "name": [
+        {
+            "use": "official",
+            "family": "Dela Cruz",
+            "given": ["Juan"]
+        }
+    ],
+    "gender": "male",
+    "birthDate": "1980-01-01"
+}
+
+# Validation request payload
+payload = {
+    "resource": ph_core_patient,
+    "validate_code_systems": True,
+    "validate_value_sets": True
+}
+
+headers = {
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, json=payload, headers=headers)
+    response.raise_for_status()
+    
+    result = response.json()
+    print(f"PH-Core Validation Status: {result['validation_result']['status']}")
+    print(f"Valid: {result['validation_result']['valid']}")
+    print(f"Processing Time: {result['processing_time_ms']}ms")
+    
+    if result['validation_result']['issues']:
+        print("Validation Issues:")
+        for issue in result['validation_result']['issues']:
+            print(f"  - {issue['severity']}: {issue['details']}")
+            if issue.get('location'):
+                print(f"    Location: {issue['location']}")
+                
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Node.js Example -->
+                <div id="validate-ph-core-nodejs" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">const fetch = require('node-fetch');
+
+const url = "https://wah4pc-validation.echosphere.cfd/api/v1/validate/ph-core";
+
+// Example PH-Core compliant Patient resource
+const phCorePatient = {
+    resourceType: "Patient",
+    id: "ph-core-patient",
+    meta: {
+        profile: ["https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"]
+    },
+    extension: [
+        {
+            url: "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people",
+            valueBoolean: false
+        }
+    ],
+    name: [
+        {
+            use: "official",
+            family: "Dela Cruz",
+            given: ["Juan"]
+        }
+    ],
+    gender: "male",
+    birthDate: "1980-01-01"
+};
+
+// Validation request payload
+const payload = {
+    resource: phCorePatient,
+    validate_code_systems: true,
+    validate_value_sets: true
+};
+
+async function validatePHCoreResource() {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        
+        console.log(`PH-Core Validation Status: ${result.validation_result.status}`);
+        console.log(`Valid: ${result.validation_result.valid}`);
+        console.log(`Processing Time: ${result.processing_time_ms}ms`);
+        
+        if (result.validation_result.issues.length > 0) {
+            console.log("Validation Issues:");
+            result.validation_result.issues.forEach(issue => {
+                console.log(`  - ${issue.severity}: ${issue.details}`);
+                if (issue.location) {
+                    console.log(`    Location: ${issue.location}`);
+                }
+            });
+        }
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+validatePHCoreResource();</code></pre>
+                    </div>
+                </div>
+
+                <!-- cURL Example -->
+                <div id="validate-ph-core-curl" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">curl -X POST "https://wah4pc-validation.echosphere.cfd/api/v1/validate/ph-core" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "resource": {
+      "resourceType": "Patient",
+      "id": "ph-core-patient",
+      "meta": {
+        "profile": ["https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"]
+      },
+      "extension": [
+        {
+          "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people",
+          "valueBoolean": false
+        }
+      ],
+      "name": [
+        {
+          "use": "official",
+          "family": "Dela Cruz",
+          "given": ["Juan"]
+        }
+      ],
+      "gender": "male",
+      "birthDate": "1980-01-01"
+    },
+    "validate_code_systems": true,
+    "validate_value_sets": true
+  }'</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Batch Validation -->
+        <section id="validate-batch" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="layers" class="w-6 h-6 mr-3"></i>
+                Batch Validation
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mr-3">POST</span>
+                    <code class="text-gray-700 font-mono">/validate/batch</code>
+                </div>
+                <p class="text-gray-600 mb-4">Validates multiple FHIR resources against FHIR R4 specification only (no PH-Core requirements). Maximum 100 resources per batch.</p>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p class="text-blue-800 text-sm"><strong>Batch Limit:</strong> Maximum of 100 resources can be validated in a single batch request.</p>
+                </div>
+            </div>
+
+            <!-- Language Examples Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-200">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('validate-batch', 'python')">Python</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('validate-batch', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('validate-batch', 'curl')">cURL</button>
+                </div>
+
+                <!-- Python Example -->
+                <div id="validate-batch-python" class="example-content">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">import requests
+import json
+
+url = "https://wah4pc-validation.echosphere.cfd/api/v1/validate/batch"
+
+# Example batch of resources
+batch_resources = [
+    {
+        "resource": {
+            "resourceType": "Patient",
+            "id": "patient-1",
+            "name": [{"family": "Smith", "given": ["Jane"]}],
+            "gender": "female",
+            "birthDate": "1985-03-15"
+        }
+    },
+    {
+        "resource": {
+            "resourceType": "Observation",
+            "id": "obs-1",
+            "status": "final",
+            "code": {
+                "coding": [
+                    {
+                        "system": "http://loinc.org",
+                        "code": "55284-4",
+                        "display": "Blood pressure systolic and diastolic"
+                    }
+                ]
+            },
+            "subject": {
+                "reference": "Patient/patient-1"
+            }
+        }
+    }
+]
+
+headers = {
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, json=batch_resources, headers=headers)
+    response.raise_for_status()
+    
+    results = response.json()
+    
+    print(f"Batch validation completed. {len(results)} resources processed.")
+    
+    for i, result in enumerate(results):
+        print(f"\nResource {i+1}:")
+        print(f"  Status: {result['validation_result']['status']}")
+        print(f"  Valid: {result['validation_result']['valid']}")
+        print(f"  Processing Time: {result['processing_time_ms']}ms")
+        
+        if result['validation_result']['issues']:
+            print("  Issues:")
+            for issue in result['validation_result']['issues']:
+                print(f"    - {issue['severity']}: {issue['details']}")
+                
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Node.js Example -->
+                <div id="validate-batch-nodejs" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">const fetch = require('node-fetch');
+
+const url = "https://wah4pc-validation.echosphere.cfd/api/v1/validate/batch";
+
+// Example batch of resources
+const batchResources = [
+    {
+        resource: {
+            resourceType: "Patient",
+            id: "patient-1",
+            name: [{family: "Smith", given: ["Jane"]}],
+            gender: "female",
+            birthDate: "1985-03-15"
+        }
+    },
+    {
+        resource: {
+            resourceType: "Observation",
+            id: "obs-1",
+            status: "final",
+            code: {
+                coding: [
+                    {
+                        system: "http://loinc.org",
+                        code: "55284-4",
+                        display: "Blood pressure systolic and diastolic"
+                    }
+                ]
+            },
+            subject: {
+                reference: "Patient/patient-1"
+            }
+        }
+    }
+];
+
+async function validateBatch() {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(batchResources)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const results = await response.json();
+        
+        console.log(`Batch validation completed. ${results.length} resources processed.`);
+        
+        results.forEach((result, index) => {
+            console.log(`\nResource ${index + 1}:`);
+            console.log(`  Status: ${result.validation_result.status}`);
+            console.log(`  Valid: ${result.validation_result.valid}`);
+            console.log(`  Processing Time: ${result.processing_time_ms}ms`);
+            
+            if (result.validation_result.issues.length > 0) {
+                console.log("  Issues:");
+                result.validation_result.issues.forEach(issue => {
+                    console.log(`    - ${issue.severity}: ${issue.details}`);
+                });
+            }
+        });
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+validateBatch();</code></pre>
+                    </div>
+                </div>
+
+                <!-- cURL Example -->
+                <div id="validate-batch-curl" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">curl -X POST "https://wah4pc-validation.echosphere.cfd/api/v1/validate/batch" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-1",
+        "name": [{"family": "Smith", "given": ["Jane"]}],
+        "gender": "female",
+        "birthDate": "1985-03-15"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-1",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "55284-4",
+              "display": "Blood pressure systolic and diastolic"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/patient-1"
+        }
+      }
+    }
+  ]'</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center pt-8 border-t border-gray-200">
+            <a href="/api/docs/overview" class="flex items-center text-gray-600 hover:text-blue-600 focus:outline-none">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+                Previous: Overview
+            </a>
+            <a href="/api/docs/information" class="flex items-center text-blue-600 hover:text-blue-800 focus:outline-none">
+                Next: Information
+                <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to show different language examples
+    function showExample(sectionId, language) {
+        // Hide all examples for this section
+        const examples = document.querySelectorAll(`[id^="${sectionId}-"]`);
+        examples.forEach(example => {
+            if (example.classList.contains('example-content')) {
+                example.classList.add('hidden');
+            }
+        });
+        
+        // Show the selected example
+        const selectedExample = document.getElementById(`${sectionId}-${language}`);
+        if (selectedExample) {
+            selectedExample.classList.remove('hidden');
+        }
+        
+        // Update tab styling
+        const section = document.getElementById(sectionId);
+        if (section) {
+            const tabContainer = section.querySelector('.flex.border-b');
+            if (tabContainer) {
+                const tabs = tabContainer.querySelectorAll('button');
+                tabs.forEach(tab => {
+                    tab.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+                    tab.classList.add('text-gray-500', 'hover:text-gray-700');
+                });
+                
+                // Style the active tab
+                const activeTab = [...tabs].find(tab => tab.textContent.trim() === language || 
+                                                (language === 'nodejs' && tab.textContent.trim() === 'Node.js') ||
+                                                (language === 'curl' && tab.textContent.trim() === 'cURL'));
+                if (activeTab) {
+                    activeTab.classList.remove('text-gray-500', 'hover:text-gray-700');
+                    activeTab.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+                }
+            }
+        }
+    }
+    
+    // Initialize first examples to be visible
+    document.addEventListener('DOMContentLoaded', function() {
+        const sections = ['validate-standard', 'validate-ph-core', 'validate-batch'];
+        sections.forEach(section => {
+            showExample(section, 'python');
+        });
+    });
+</script>
+{% endblock %}

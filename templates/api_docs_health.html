@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation - Health & Status{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <a href="/api/docs" class="text-blue-600 hover:text-blue-800 focus:outline-none mr-3">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <h1 class="text-3xl font-bold text-gray-900">Health & Status</h1>
+            </div>
+            <p class="text-gray-600">Server health check and monitoring endpoints.</p>
+        </div>
+
+        <!-- Health Check -->
+        <section id="health-check" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="heart" class="w-6 h-6 mr-3"></i>
+                Health Check
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mr-3">GET</span>
+                    <code class="text-gray-700 font-mono">/health</code>
+                </div>
+                <p class="text-gray-600">Performs a health check on the server and returns status information including uptime and system health.</p>
+            </div>
+
+            <!-- Language Examples Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-200">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('health-check', 'python')">Python</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('health-check', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('health-check', 'curl')">cURL</button>
+                </div>
+
+                <!-- Python Example -->
+                <div id="health-check-python" class="example-content">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">import requests
+
+url = "https://wah4pc-validation.echosphere.cfd/api/v1/health"
+
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+    
+    health_status = response.json()
+    
+    print("Server Health Check:")
+    print(f"  Status: {health_status['status']}")
+    print(f"  Version: {health_status['version']}")
+    print(f"  Timestamp: {health_status['timestamp']}")
+    print(f"  Uptime: {health_status['uptime_seconds']} seconds")
+    
+    # Convert uptime to human readable format
+    uptime_minutes = health_status['uptime_seconds'] // 60
+    uptime_hours = uptime_minutes // 60
+    uptime_days = uptime_hours // 24
+    
+    if uptime_days > 0:
+        print(f"  Uptime (readable): {uptime_days} days, {uptime_hours % 24} hours, {uptime_minutes % 60} minutes")
+    elif uptime_hours > 0:
+        print(f"  Uptime (readable): {uptime_hours} hours, {uptime_minutes % 60} minutes")
+    else:
+        print(f"  Uptime (readable): {uptime_minutes} minutes")
+        
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Node.js Example -->
+                <div id="health-check-nodejs" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">const fetch = require('node-fetch');
+
+const url = "https://wah4pc-validation.echosphere.cfd/api/v1/health";
+
+async function checkHealth() {
+    try {
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const healthStatus = await response.json();
+        
+        console.log("Server Health Check:");
+        console.log(`  Status: ${healthStatus.status}`);
+        console.log(`  Version: ${healthStatus.version}`);
+        console.log(`  Timestamp: ${healthStatus.timestamp}`);
+        console.log(`  Uptime: ${healthStatus.uptime_seconds} seconds`);
+        
+        // Convert uptime to human readable format
+        const uptimeMinutes = Math.floor(healthStatus.uptime_seconds / 60);
+        const uptimeHours = Math.floor(uptimeMinutes / 60);
+        const uptimeDays = Math.floor(uptimeHours / 24);
+        
+        if (uptimeDays > 0) {
+            console.log(`  Uptime (readable): ${uptimeDays} days, ${uptimeHours % 24} hours, ${uptimeMinutes % 60} minutes`);
+        } else if (uptimeHours > 0) {
+            console.log(`  Uptime (readable): ${uptimeHours} hours, ${uptimeMinutes % 60} minutes`);
+        } else {
+            console.log(`  Uptime (readable): ${uptimeMinutes} minutes`);
+        }
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+checkHealth();</code></pre>
+                    </div>
+                </div>
+
+                <!-- cURL Example -->
+                <div id="health-check-curl" class="example-content hidden">
+                    <div class="bg-gray-900 text-gray-100 rounded-b-lg p-4 overflow-x-auto">
+                        <pre><code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/api/v1/health"</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example Response -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Example Response</h3>
+                <div class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto">
+                    <pre><code class="text-sm">{
+  "status": "healthy",
+  "timestamp": "2024-01-15T10:30:45.123Z",
+  "version": "2.1.0",
+  "uptime_seconds": 86400
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Health Status Codes -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Health Status Codes</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded text-sm font-medium">healthy</span>
+                        <span class="text-gray-700">Server is operating normally and all systems are functional</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded text-sm font-medium">degraded</span>
+                        <span class="text-gray-700">Server is operational but experiencing some issues</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded text-sm font-medium">unhealthy</span>
+                        <span class="text-gray-700">Server is experiencing significant issues</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monitoring Best Practices -->
+        <section id="monitoring-practices" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="activity" class="w-6 h-6 mr-3"></i>
+                Monitoring Best Practices
+            </h2>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <h3 class="font-semibold text-blue-900 mb-4">Recommended Health Check Practices</h3>
+                <ul class="space-y-2 text-blue-800">
+                    <li class="flex items-start space-x-2">
+                        <i data-lucide="check" class="w-4 h-4 mt-0.5 text-blue-600"></i>
+                        <span>Check health status before making validation requests</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <i data-lucide="check" class="w-4 h-4 mt-0.5 text-blue-600"></i>
+                        <span>Implement retry logic based on health status</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <i data-lucide="check" class="w-4 h-4 mt-0.5 text-blue-600"></i>
+                        <span>Monitor uptime trends for service reliability assessment</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <i data-lucide="check" class="w-4 h-4 mt-0.5 text-blue-600"></i>
+                        <span>Set up automated monitoring with appropriate alerting thresholds</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center pt-8 border-t border-gray-200">
+            <a href="/api/docs/information" class="flex items-center text-gray-600 hover:text-blue-600 focus:outline-none">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+                Previous: Information
+            </a>
+            <a href="/api/docs/ph-core-ig" class="flex items-center text-blue-600 hover:text-blue-800 focus:outline-none">
+                Next: PH-Core IG
+                <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to show different language examples
+    function showExample(sectionId, language) {
+        // Hide all examples for this section
+        const examples = document.querySelectorAll(`[id^="${sectionId}-"]`);
+        examples.forEach(example => {
+            if (example.classList.contains('example-content')) {
+                example.classList.add('hidden');
+            }
+        });
+        
+        // Show the selected example
+        const selectedExample = document.getElementById(`${sectionId}-${language}`);
+        if (selectedExample) {
+            selectedExample.classList.remove('hidden');
+        }
+        
+        // Update tab styling
+        const section = document.getElementById(sectionId);
+        if (section) {
+            const tabContainer = section.querySelector('.flex.border-b');
+            if (tabContainer) {
+                const tabs = tabContainer.querySelectorAll('button');
+                tabs.forEach(tab => {
+                    tab.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+                    tab.classList.add('text-gray-500', 'hover:text-gray-700');
+                });
+                
+                // Style the active tab
+                const activeTab = [...tabs].find(tab => tab.textContent.trim() === language || 
+                                                (language === 'nodejs' && tab.textContent.trim() === 'Node.js') ||
+                                                (language === 'curl' && tab.textContent.trim() === 'cURL'));
+                if (activeTab) {
+                    activeTab.classList.remove('text-gray-500', 'hover:text-gray-700');
+                    activeTab.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+                }
+            }
+        }
+    }
+    
+    // Initialize first examples to be visible
+    document.addEventListener('DOMContentLoaded', function() {
+        showExample('health-check', 'python');
+    });
+</script>
+{% endblock %}

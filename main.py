@@ -104,10 +104,6 @@ app.include_router(web_router)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-@app.get("/docs-api", include_in_schema=False)
-async def api_docs():
-    """Redirect to API documentation."""
-    return RedirectResponse(url="/docs")
 
 
 if __name__ == "__main__":

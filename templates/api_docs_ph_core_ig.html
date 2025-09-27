@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation - PH-Core IG{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <a href="/api/docs" class="text-blue-600 hover:text-blue-800 focus:outline-none mr-3">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <h1 class="text-3xl font-bold text-gray-900">PH-Core IG</h1>
+            </div>
+            <p class="text-gray-600">Philippines Healthcare Core Implementation Guide resources and definitions.</p>
+        </div>
+
+        <!-- Structure Definitions -->
+        <section id="structure-definition" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="map" class="w-6 h-6 mr-3"></i>
+                PH-Core Structure Definitions
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mr-3">GET</span>
+                    <code class="text-gray-700 font-mono">/StructureDefinition/{profile_id}</code>
+                </div>
+                <p class="text-gray-600 mb-4">Access PH-Core StructureDefinition resources directly via their canonical URLs. These define the profiles and constraints for Philippines Healthcare resources.</p>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p class="text-blue-800 text-sm"><strong>Note:</strong> These endpoints serve the Implementation Guide resources directly and support FHIR canonical URL resolution.</p>
+                </div>
+            </div>
+
+            <!-- Available Structure Definitions -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Available Structure Definitions</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-900 mb-2">PH-Core Patient</h4>
+                        <code class="text-sm text-blue-600">ph-core-patient</code>
+                        <p class="text-xs text-gray-600 mt-2">Patient profile with indigenous people extension and PSGC address support</p>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-900 mb-2">Indigenous People Extension</h4>
+                        <code class="text-sm text-blue-600">indigenous-people</code>
+                        <p class="text-xs text-gray-600 mt-2">Extension to indicate if a person belongs to an indigenous group</p>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-900 mb-2">City/Municipality Extension</h4>
+                        <code class="text-sm text-blue-600">city-municipality</code>
+                        <p class="text-xs text-gray-600 mt-2">PSGC-compliant city/municipality address extension</p>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-900 mb-2">Province Extension</h4>
+                        <code class="text-sm text-blue-600">province</code>
+                        <p class="text-xs text-gray-600 mt-2">PSGC-compliant province address extension</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example Access -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Example: Get PH-Core Patient Profile</h3>
+                <div class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto">
+                    <pre><code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"</code></pre>
+                </div>
+            </div>
+
+            <!-- Canonical URL Pattern -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Canonical URL Pattern</h3>
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <p class="text-gray-700 mb-2"><strong>Base URL:</strong></p>
+                    <code class="text-blue-600 font-mono">https://wah4pc-validation.echosphere.cfd/StructureDefinition/</code>
+                    <p class="text-gray-700 mt-4 mb-2"><strong>Full Example:</strong></p>
+                    <code class="text-blue-600 font-mono">https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Sets & Code Systems -->
+        <section id="value-sets" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="list" class="w-6 h-6 mr-3"></i>
+                PH-Core Value Sets & Code Systems
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mr-3">GET</span>
+                    <code class="text-gray-700 font-mono">/ValueSet/{valueset_id}</code>
+                </div>
+                <div class="flex items-center mb-4">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mr-3">GET</span>
+                    <code class="text-gray-700 font-mono">/CodeSystem/{codesystem_id}</code>
+                </div>
+                <p class="text-gray-600">Access PH-Core ValueSets and CodeSystems that define the terminologies specific to Philippines Healthcare context.</p>
+            </div>
+
+            <!-- Available Resources -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Available Terminologies</h3>
+                <div class="space-y-4">
+                    <!-- Code Systems -->
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h4 class="font-medium text-green-900 mb-3 flex items-center">
+                            <i data-lucide="database" class="w-4 h-4 mr-2"></i>
+                            Code Systems
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <h5 class="font-medium text-green-800">PSGC Province Codes</h5>
+                                <code class="text-xs text-green-600">psgc-province-codes</code>
+                                <p class="text-xs text-green-700 mt-1">Philippine Standard Geographic Code (PSGC) codes for provinces</p>
+                            </div>
+                            <div>
+                                <h5 class="font-medium text-green-800">PSGC City/Municipality Codes</h5>
+                                <code class="text-xs text-green-600">psgc-city-municipality-codes</code>
+                                <p class="text-xs text-green-700 mt-1">PSGC codes for cities and municipalities</p>
+                            </div>
+                            <div>
+                                <h5 class="font-medium text-green-800">PSGC Region Codes</h5>
+                                <code class="text-xs text-green-600">psgc-region-codes</code>
+                                <p class="text-xs text-green-700 mt-1">PSGC codes for administrative regions</p>
+                            </div>
+                            <div>
+                                <h5 class="font-medium text-green-800">PSGC Barangay Codes</h5>
+                                <code class="text-xs text-green-600">psgc-barangay-codes</code>
+                                <p class="text-xs text-green-700 mt-1">PSGC codes for barangays</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Value Sets -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h4 class="font-medium text-blue-900 mb-3 flex items-center">
+                            <i data-lucide="layers" class="w-4 h-4 mr-2"></i>
+                            Value Sets
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <h5 class="font-medium text-blue-800">Indigenous Groups</h5>
+                                <code class="text-xs text-blue-600">indigenous-group-valueset</code>
+                                <p class="text-xs text-blue-700 mt-1">ValueSet containing recognized indigenous groups in the Philippines</p>
+                            </div>
+                            <div>
+                                <h5 class="font-medium text-blue-800">Administrative Gender (PH)</h5>
+                                <code class="text-xs text-blue-600">administrative-gender-ph</code>
+                                <p class="text-xs text-blue-700 mt-1">Philippines-specific administrative gender codes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Naming Systems -->
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                        <h4 class="font-medium text-purple-900 mb-3 flex items-center">
+                            <i data-lucide="tag" class="w-4 h-4 mr-2"></i>
+                            Naming Systems
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <h5 class="font-medium text-purple-800">PSGC Naming System</h5>
+                                <code class="text-xs text-purple-600">psgc-naming-system</code>
+                                <p class="text-xs text-purple-700 mt-1">Naming system for Philippine Standard Geographic Codes</p>
+                            </div>
+                            <div>
+                                <h5 class="font-medium text-purple-800">PH Healthcare Facilities</h5>
+                                <code class="text-xs text-purple-600">ph-healthcare-facilities</code>
+                                <p class="text-xs text-purple-700 mt-1">Naming system for healthcare facilities in the Philippines</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Usage Examples</h3>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-900 mb-2">Get PSGC Province Codes</h4>
+                        <div class="bg-gray-900 text-gray-100 rounded p-3 overflow-x-auto">
+                            <code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/CodeSystem/psgc-province-codes"</code>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-900 mb-2">Get Indigenous Groups ValueSet</h4>
+                        <div class="bg-gray-900 text-gray-100 rounded p-3 overflow-x-auto">
+                            <code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/ValueSet/indigenous-group-valueset"</code>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-900 mb-2">Get PSGC Naming System</h4>
+                        <div class="bg-gray-900 text-gray-100 rounded p-3 overflow-x-auto">
+                            <code class="text-sm">curl -X GET "https://wah4pc-validation.echosphere.cfd/NamingSystem/psgc-naming-system"</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementation Guide Information -->
+        <section id="implementation-guide-info" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <i data-lucide="book-open" class="w-6 h-6 mr-3"></i>
+                Implementation Guide Information
+            </h2>
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <h3 class="font-semibold text-gray-900 mb-4">About PH-Core IG</h3>
+                <p class="text-gray-600 mb-4">
+                    The Philippines Healthcare Core (PH-Core) Implementation Guide defines the minimum conformance requirements for 
+                    FHIR resources used in Philippine healthcare systems. It includes profiles, extensions, and terminologies 
+                    specific to the Philippine healthcare context.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-medium text-gray-900 mb-3">Key Features</h4>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 mt-0.5 text-green-500"></i>
+                                <span>Indigenous people identification</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 mt-0.5 text-green-500"></i>
+                                <span>PSGC-compliant address extensions</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 mt-0.5 text-green-500"></i>
+                                <span>Philippines-specific terminologies</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 mt-0.5 text-green-500"></i>
+                                <span>Healthcare facility naming systems</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-gray-900 mb-3">Compliance Requirements</h4>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="alert-triangle" class="w-4 h-4 mt-0.5 text-yellow-500"></i>
+                                <span>Must include required PH-Core profiles in meta.profile</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="alert-triangle" class="w-4 h-4 mt-0.5 text-yellow-500"></i>
+                                <span>Address extensions must use PSGC codes</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="alert-triangle" class="w-4 h-4 mt-0.5 text-yellow-500"></i>
+                                <span>Indigenous people extension is required for Patient</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i data-lucide="alert-triangle" class="w-4 h-4 mt-0.5 text-yellow-500"></i>
+                                <span>Must validate against both FHIR R4 and PH-Core constraints</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center pt-8 border-t border-gray-200">
+            <a href="/api/docs/health" class="flex items-center text-gray-600 hover:text-blue-600 focus:outline-none">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+                Previous: Health & Status
+            </a>
+            <a href="/api/docs/additional" class="flex items-center text-blue-600 hover:text-blue-800 focus:outline-none">
+                Next: Additional Resources
+                <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

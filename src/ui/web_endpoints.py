@@ -1059,13 +1059,87 @@ async def search_resources(request: Request, q: Optional[str] = None):
     )
 
 
-@web_router.get("/docs-api", response_class=HTMLResponse)
-async def api_documentation(request: Request):
-    """Comprehensive API documentation page."""
+
+
+@web_router.get("/api/docs", response_class=HTMLResponse)
+async def api_docs_index(request: Request):
+    """API documentation index page with navigation to all sections."""
     return templates.TemplateResponse(
-        "api_docs.html",
+        "api_docs_index.html",
         {
             "request": request,
             "title": "API Documentation"
+        }
+    )
+
+
+@web_router.get("/api/docs/overview", response_class=HTMLResponse)
+async def api_docs_overview(request: Request):
+    """API documentation overview section."""
+    return templates.TemplateResponse(
+        "api_docs_overview.html",
+        {
+            "request": request,
+            "title": "API Documentation - Overview"
+        }
+    )
+
+
+@web_router.get("/api/docs/validation", response_class=HTMLResponse)
+async def api_docs_validation(request: Request):
+    """API documentation validation section."""
+    return templates.TemplateResponse(
+        "api_docs_validation.html",
+        {
+            "request": request,
+            "title": "API Documentation - Validation"
+        }
+    )
+
+
+@web_router.get("/api/docs/information", response_class=HTMLResponse)
+async def api_docs_information(request: Request):
+    """API documentation information section."""
+    return templates.TemplateResponse(
+        "api_docs_information.html",
+        {
+            "request": request,
+            "title": "API Documentation - Information"
+        }
+    )
+
+
+@web_router.get("/api/docs/health", response_class=HTMLResponse)
+async def api_docs_health(request: Request):
+    """API documentation health & status section."""
+    return templates.TemplateResponse(
+        "api_docs_health.html",
+        {
+            "request": request,
+            "title": "API Documentation - Health & Status"
+        }
+    )
+
+
+@web_router.get("/api/docs/ph-core-ig", response_class=HTMLResponse)
+async def api_docs_ph_core_ig(request: Request):
+    """API documentation PH-Core IG section."""
+    return templates.TemplateResponse(
+        "api_docs_ph_core_ig.html",
+        {
+            "request": request,
+            "title": "API Documentation - PH-Core IG"
+        }
+    )
+
+
+@web_router.get("/api/docs/additional", response_class=HTMLResponse)
+async def api_docs_additional(request: Request):
+    """API documentation additional resources section."""
+    return templates.TemplateResponse(
+        "api_docs_additional.html",
+        {
+            "request": request,
+            "title": "API Documentation - Additional Resources"
         }
     )
