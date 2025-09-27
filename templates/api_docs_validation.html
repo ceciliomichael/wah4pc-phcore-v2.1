@@ -642,6 +642,7 @@ validateBatch();</code></pre>
                 
                 // Style the active tab
                 const activeTab = [...tabs].find(tab => tab.textContent.trim() === language || 
+                                                (language === 'python' && tab.textContent.trim() === 'Python') ||
                                                 (language === 'nodejs' && tab.textContent.trim() === 'Node.js') ||
                                                 (language === 'curl' && tab.textContent.trim() === 'cURL'));
                 if (activeTab) {
@@ -651,13 +652,131 @@ validateBatch();</code></pre>
             }
         }
     }
+
+    // Function to copy code block content
+    function copyCodeBlock(codeId, buttonElement) {
+        const codeElement = document.getElementById(codeId);
+        if (!codeElement) {
+            console.error('Code element not found:', codeId);
+            return;
+        }
+
+        const text = codeElement.textContent || codeElement.innerText;
+        const originalHTML = buttonElement.innerHTML;
+        
+        // Try modern clipboard API first
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+                showCopySuccess(buttonElement, originalHTML);
+            }).catch(err => {
+                console.error('Clipboard API failed:', err);
+                fallbackCopyTextToClipboard(text, buttonElement, originalHTML);
+            });
+        } else {
+            fallbackCopyTextToClipboard(text, buttonElement, originalHTML);
+        }
+    }
+
+    // Fallback copy method
+    function fallbackCopyTextToClipboard(text, buttonElement, originalHTML) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                showCopySuccess(buttonElement, originalHTML);
+            } else {
+                showCopyError(buttonElement, originalHTML);
+            }
+        } catch (err) {
+            console.error('Fallback copy failed:', err);
+            showCopyError(buttonElement, originalHTML);
+        }
+        
+        document.body.removeChild(textArea);
+    }
+
+    // Show copy success by changing button text
+    function showCopySuccess(buttonElement, originalHTML) {
+        buttonElement.innerHTML = '<i data-lucide="check" class="w-3 h-3 inline mr-1"></i>Copied!';
+        buttonElement.classList.add('bg-green-700', 'hover:bg-green-600');
+        buttonElement.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+        
+        lucide.createIcons(); // Reinitialize icons
+        
+        setTimeout(() => {
+            buttonElement.innerHTML = originalHTML;
+            buttonElement.classList.remove('bg-green-700', 'hover:bg-green-600');
+            buttonElement.classList.add('bg-gray-700', 'hover:bg-gray-600');
+            lucide.createIcons(); // Reinitialize icons
+        }, 2000);
+    }
+
+    // Show copy error by changing button text
+    function showCopyError(buttonElement, originalHTML) {
+        buttonElement.innerHTML = '<i data-lucide="x" class="w-3 h-3 inline mr-1"></i>Failed';
+        buttonElement.classList.add('bg-red-700', 'hover:bg-red-600');
+        buttonElement.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+        
+        lucide.createIcons(); // Reinitialize icons
+        
+        setTimeout(() => {
+            buttonElement.innerHTML = originalHTML;
+            buttonElement.classList.remove('bg-red-700', 'hover:bg-red-600');
+            buttonElement.classList.add('bg-gray-700', 'hover:bg-gray-600');
+            lucide.createIcons(); // Reinitialize icons
+        }, 2000);
+    }
     
+    // Automatically add copy buttons to all code blocks
+    function addCopyButtonsToCodeBlocks() {
+        const codeBlocks = document.querySelectorAll('pre code');
+        codeBlocks.forEach((codeBlock, index) => {
+            // Skip if already has an ID
+            if (codeBlock.id) return;
+            
+            // Generate unique ID
+            const codeId = `code-block-${index}`;
+            codeBlock.id = codeId;
+            
+            // Check if parent container is relative positioned
+            const preElement = codeBlock.parentElement;
+            const container = preElement.parentElement;
+            
+            if (!container.classList.contains('relative')) {
+                container.classList.add('relative');
+            }
+            
+            // Create copy button
+            const copyButton = document.createElement('button');
+            copyButton.onclick = () => copyCodeBlock(codeId, copyButton);
+            copyButton.className = 'absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 px-2 py-1 rounded text-xs focus:outline-none transition-colors';
+            copyButton.innerHTML = '<i data-lucide="copy" class="w-3 h-3 inline mr-1"></i>Copy';
+            
+            // Insert button into container
+            container.insertBefore(copyButton, preElement);
+        });
+        
+        // Reinitialize icons
+        lucide.createIcons();
+    }
+
     // Initialize first examples to be visible
     document.addEventListener('DOMContentLoaded', function() {
         const sections = ['validate-standard', 'validate-ph-core', 'validate-batch'];
         sections.forEach(section => {
             showExample(section, 'python');
         });
+        
+        // Add copy buttons to all code blocks
+        addCopyButtonsToCodeBlocks();
     });
 </script>
 {% endblock %}
