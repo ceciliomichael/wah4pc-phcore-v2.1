@@ -32,7 +32,11 @@ class PHCoreValidator:
             "Medication": "ph-core-medication",
             "RelatedPerson": "ph-core-relatedperson",
             "Procedure": "ph-core-procedure",
-            "Location": "ph-core-location"
+            "Location": "ph-core-location",
+            # Resources with PHCore examples but no specific profiles (use base FHIR)
+            "Condition": None,  # Uses base FHIR Condition profile
+            "AllergyIntolerance": None,  # Uses base FHIR AllergyIntolerance profile
+            "Bundle": None  # Uses base FHIR Bundle profile
         }
         
         logger.info(f"Loaded {len(profile_mapping)} PH-Core profile mappings")
@@ -279,6 +283,13 @@ class PHCoreValidator:
                     
                     address_issues = self._validate_address_profile(resource)
                     all_issues.extend(address_issues)
+            elif profile_id is None and self.is_ph_core_resource(resource_type):
+                # Resource is supported by PHCore but uses base FHIR profile
+                all_issues.append(ValidationIssue(
+                    severity=ValidationSeverity.INFORMATION,
+                    code="using-base-fhir-profile",
+                    details=f"'{resource_type}' is supported by PH-Core but uses base FHIR profile (no PH-Core specific constraints)"
+                ))
             
             # Determine overall validation status
             fatal_issues = [i for i in all_issues if i.severity == ValidationSeverity.FATAL]

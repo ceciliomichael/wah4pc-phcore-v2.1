@@ -1,0 +1,229 @@
+{
+    "resourceType": "Patient",
+    "id": "patient-001",
+    "meta": {
+      "profile": [
+        "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-patient"
+      ]
+    },
+    "identifier": [
+      {
+        "use": "usual",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "MR",
+              "display": "Medical Record Number"
+            }
+          ]
+        },
+        "system": "urn:oid:2.16.840.1.113883.3.67.1.1.1.1",
+        "value": "MRN123456789"
+      },
+      {
+        "use": "official",
+        "type": {
+          "coding": [
+            {
+              "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
+              "code": "PH-PhilHealthID",
+              "display": "PhilHealth ID"
+            }
+          ]
+        },
+        "system": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-philhealth-id",
+        "value": "10-123456789-0"
+      },
+      {
+        "use": "official",
+        "type": {
+          "coding": [
+            {
+              "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
+              "code": "PH-PhilSysID",
+              "display": "PhilSys ID"
+            }
+          ]
+        },
+        "system": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/ph-core-philsys-id",
+        "value": "201-234-567"
+      }
+    ],
+    "active": true,
+    "name": [
+      {
+        "use": "official",
+        "family": "Santos",
+        "given": [
+          "Maria",
+          "Clara"
+        ],
+        "prefix": [
+          "Dr."
+        ]
+      },
+      {
+        "use": "maiden",
+        "family": "De Leon",
+        "given": [
+          "Maria"
+        ]
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+63285551234",
+        "use": "home"
+      },
+      {
+        "system": "phone",
+        "value": "+639171234567",
+        "use": "mobile"
+      },
+      {
+        "system": "email",
+        "value": "maria.santos@example.com",
+        "use": "home"
+      }
+    ],
+    "gender": "female",
+    "birthDate": "1988-07-22",
+    "deceasedBoolean": false,
+    "address": [
+      {
+        "use": "home",
+        "line": [
+          "123 Rizal Street",
+          "Barangay Poblacion"
+        ],
+        "extension": [
+          {
+            "url": "urn://example.com/ph-core/fhir/StructureDefinition/barangay",
+            "valueCoding": {
+              "code": "03214001000",
+              "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
+              "display": "Poblacion"
+            }
+          },
+          {
+            "url": "urn://example.com/ph-core/fhir/StructureDefinition/city-municipality",
+            "valueCoding": {
+              "code": "0321400000",
+              "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
+              "display": "Santa Cruz"
+            }
+          },
+          {
+            "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+            "valueCoding": {
+              "code": "0321000000",
+              "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
+              "display": "Marinduque"
+            }
+          },
+          {
+            "url": "urn://example.com/ph-core/fhir/StructureDefinition/region",
+            "valueCoding": {
+              "code": "040000000",
+              "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSGC",
+              "display": "MIMAROPA"
+            }
+          }
+        ],
+        "city": "Santa Cruz",
+        "state": "Marinduque",
+        "postalCode": "4903",
+        "country": "PH"
+      }
+    ],
+    "maritalStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/marital-status",
+          "code": "M",
+          "display": "Married"
+        }
+      ]
+    },
+    "multipleBirthBoolean": false,
+    "communication": [
+      {
+        "language": {
+          "coding": [
+            {
+              "system": "urn:ietf:bcp:47",
+              "code": "en",
+              "display": "English"
+            }
+          ]
+        },
+        "preferred": true
+      },
+      {
+        "language": {
+          "coding": [
+            {
+              "system": "urn:ietf:bcp:47",
+              "code": "tl",
+              "display": "Tagalog"
+            }
+          ]
+        },
+        "preferred": false
+      }
+    ],
+    "generalPractitioner": [
+      {
+        "reference": "Practitioner/practitioner-001",
+        "display": "Dr. Jose Rizal"
+      }
+    ],
+    "managingOrganization": {
+      "reference": "Organization/organization-001",
+      "display": "Manila Medical Center"
+    },
+    "extension": [
+      {
+        "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/indigenous-people",
+        "valueBoolean": false
+      },
+      {
+        "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/educational-attainment",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSCED",
+              "code": "04",
+              "display": "Bachelor's Degree"
+            }
+          ]
+        }
+      },
+      {
+        "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/occupation",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "https://wah4pc-validation.echosphere.cfd/CodeSystem/PSOC",
+              "code": "2131",
+              "display": "Registered Nurses"
+            }
+          ]
+        }
+      },
+      {
+        "url": "https://wah4pc-validation.echosphere.cfd/StructureDefinition/race",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-Race",
+              "code": "2036-2",
+              "display": "Filipino"
+            }
+          ]
+        }
+      }
+    ]
+  }

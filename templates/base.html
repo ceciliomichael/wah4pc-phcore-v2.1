@@ -51,7 +51,7 @@
 </head>
 <body class="h-full bg-white text-gray-900 font-sans overflow-x-hidden">
     <!-- Navigation -->
-    <nav class="bg-white border-b border-gray-200 px-4 md:px-6 py-4">
+    <nav class="bg-white border-b border-gray-200 px-4 md:px-6 py-4 fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
             <div class="flex items-center space-x-4 min-w-0">
                 <a href="/" class="flex items-center space-x-2 text-xl font-semibold text-gray-900 hover:text-blue-600 focus:outline-none">
@@ -76,6 +76,9 @@
                     <a href="/resources/examples" class="text-gray-700 hover:text-blue-600 focus:outline-none text-sm">
                         <i data-lucide="file-text" class="w-4 h-4 inline mr-1"></i>Examples
                     </a>
+                    <a href="/docs-api" class="text-gray-700 hover:text-blue-600 focus:outline-none text-sm">
+                        <i data-lucide="code" class="w-4 h-4 inline mr-1"></i>API Docs
+                    </a>
                 </div>
                 
                 <!-- Search -->
@@ -96,7 +99,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="min-h-screen w-full py-8 px-4 md:px-6 overflow-x-hidden">
+    <main class="min-h-screen w-full pt-24 pb-8 px-4 md:px-6 overflow-x-hidden">
         <div class="max-w-7xl mx-auto">
             {% block content %}{% endblock %}
         </div>

@@ -1057,3 +1057,15 @@ async def search_resources(request: Request, q: Optional[str] = None):
             "title": f"Search Results for '{q}'" if q else "Search Resources"
         }
     )
+
+
+@web_router.get("/docs-api", response_class=HTMLResponse)
+async def api_documentation(request: Request):
+    """Comprehensive API documentation page."""
+    return templates.TemplateResponse(
+        "api_docs.html",
+        {
+            "request": request,
+            "title": "API Documentation"
+        }
+    )
