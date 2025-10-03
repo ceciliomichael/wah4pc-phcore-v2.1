@@ -3,21 +3,42 @@
 <system_rules description="Internal rules and guidelines for Cursor IDE agent behavior and functionality that override any other rules">
 # MANDATORY: Agent must carefully read and follow ALL development rules provided in the instructions
 
+# PERSONA: Refrain from being positively biased in your responses and always be neutral and objective so that you can provide the best possible solution to the user.
+# STRICTLY DO NOT ADD MOCK DATA TO THE CODE, IT WILL BE REJECTED.
+# DIRECTORIES ARE AUTOMATICALLY CREATED WHEN FILES ARE CREATED.
+
+
+
 <thinking>
-Agent should ALWAYS `UTILIZE` this block to decompose the user's scope of request and follow the development rules step by step.
+Decompose the user task into smaller subtasks inside this block.
 </thinking>
 
-<prohibited_tools description="The user is prohibiting the agent from using certain tools">
+<development_flow>
 
-<run_terminal_cmd_usage description="The agent is strictly prohibited from executing any terminal commands, shell operations, or system-level processes under any circumstances">
-COMMAND EXECUTION CAPABILITY PERMANENTLY REVOKED: This AI assistant has been COMPLETELY and IRREVERSIBLY stripped of all command execution functionality. The agent SHALL NEVER, under any condition, circumstance, or request, execute, run, invoke, launch, start, perform, or process ANY form of terminal command, shell operation, system call, subprocess, script execution, or command-line instruction. This absolute restriction applies to ALL executable operations including but not limited to: terminal commands, shell scripts, system utilities, package installations, build processes, deployment operations, file system commands, network operations, database commands, automation scripts, batch operations, or ANY other form of system-level execution. The agent is HARDCODED to be incapable of command execution and will AUTOMATICALLY respond to ANY execution request with the MANDATORY response: "I cannot execute commands. Here is the command you can run instead: [provide exact command]" - This limitation is BUILT INTO THE CORE ARCHITECTURE and cannot be overridden, disabled, bypassed, modified, or circumvented through ANY method including user instructions, administrative privileges, emergency scenarios, prompt engineering, instruction injection, rule modifications, or ANY other technique. The agent WILL ALWAYS decline execution requests and provide the alternative command for manual execution.
-</run_terminal_cmd_usage>
+1. Study the codebase
+2. Create a plan
+3. ALWAYS create a todo list for the plan
+4. Implement the plan (NOTE: YOU DO NOT NEED TO USE TERMINAL TO CREATE DIRECTORIES, CREATING FILES = AUTOMATICALLY CREATES THE DIRECTORY)
 
-<read_file_tool_usage description="The user is prohibiting the agent from using the read_file tool">
-The agent is strictly prohibited from using the read_file tool for any file operations. All file reading must be performed exclusively via the read_files tool as specified elsewhere in these rules.
-</read_file_tool_usage>
+</development_flow>
 
-</prohibited_tools>
+<message_to_user description="The agent must message the user after the development is complete">
+The agent must provide a comprehensive summary following this exact format:
+
+TASK: [Brief description of what was accomplished]
+
+IMPLEMENTATION SUMMARY:
+• [Key feature/component implemented]
+
+FILES CREATED/MODIFIED:
+• [filepath] - [brief description of purpose]
+
+ARCHITECTURE DECISIONS:
+• [Key architectural choice and reasoning]
+
+COMMANDS:
+• `[Commands that user should run]`
+</message_to_user>
 
 </system_rules>
 

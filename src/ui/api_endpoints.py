@@ -10,7 +10,7 @@ from fastapi.responses import JSONResponse
 
 from src.types.fhir_types import (
     ValidationRequest, ValidationResponse, ValidationResult,
-    ServerInfo, HealthStatus, FHIRResource
+    ServerInfo, HealthStatus, FHIRResource, ValidationStatus
 )
 from src.utils.fhir_validator import fhir_validator
 from src.lib.resource_loader import resource_loader
@@ -29,7 +29,6 @@ router = APIRouter()
 
 @router.post(
     "/validate",
-    response_model=ValidationResponse,
     summary="Validate FHIR Resource (Standard FHIR Only)",
     description="Validate a FHIR resource against base FHIR R4 specification only (no PH-Core requirements)",
     tags=["Standard FHIR Validation"]
@@ -64,14 +63,18 @@ async def validate_fhir_resource(
             }
         }
     )
-) -> ValidationResponse:
+):
     """Validate a FHIR resource.
     
     Args:
         request: Validation request containing the resource and options
         
     Returns:
-        Validation response with results
+        Validation response with results and appropriate HTTP status code:
+        - 200 OK: Validation successful (valid=true, status=success)
+        - 400 Bad Request: Validation failed (valid=false, status=failed)
+        - 422 Unprocessable Entity: Resource has validation warnings (valid=true, status=warning)
+        - 500 Internal Server Error: Server error during validation
         
     Raises:
         HTTPException: If validation fails due to server error
@@ -91,11 +94,31 @@ async def validate_fhir_resource(
         
         processing_time = int((time.time() - start_time) * 1000)
         
-        return ValidationResponse(
+        response_data = ValidationResponse(
             validation_result=validation_result,
             processed_at=datetime.now().isoformat(),
             processing_time_ms=processing_time
         )
+        
+        # Return appropriate HTTP status code based on validation result
+        if not validation_result.valid:
+            # Validation failed - return 400 Bad Request
+            return JSONResponse(
+                status_code=400,
+                content=response_data.model_dump()
+            )
+        elif validation_result.status == ValidationStatus.WARNING:
+            # Validation passed with warnings - return 422 Unprocessable Entity
+            return JSONResponse(
+                status_code=422,
+                content=response_data.model_dump()
+            )
+        else:
+            # Validation successful - return 200 OK
+            return JSONResponse(
+                status_code=200,
+                content=response_data.model_dump()
+            )
         
     except Exception as e:
         logger.error(f"Error validating resource: {e}")
@@ -107,7 +130,6 @@ async def validate_fhir_resource(
 
 @router.post(
     "/validate/ph-core",
-    response_model=ValidationResponse,
     summary="Validate FHIR Resource (PH-Core STRICT)",
     description="Validate a FHIR resource against BOTH FHIR R4 AND PH-Core Implementation Guide (STRICT COMPLIANCE REQUIRED)",
     tags=["PH-Core Validation"]
@@ -148,7 +170,7 @@ async def validate_ph_core_fhir_resource(
             }
         }
     )
-) -> ValidationResponse:
+):
     """Validate a FHIR resource with STRICT PH-Core compliance.
     
     This endpoint enforces BOTH:
@@ -161,7 +183,11 @@ async def validate_ph_core_fhir_resource(
         request: Validation request containing the resource
         
     Returns:
-        Validation response with results
+        Validation response with results and appropriate HTTP status code:
+        - 200 OK: Validation successful (valid=true, status=success)
+        - 400 Bad Request: Validation failed (valid=false, status=failed)
+        - 422 Unprocessable Entity: Resource has validation warnings (valid=true, status=warning)
+        - 500 Internal Server Error: Server error during validation
         
     Raises:
         HTTPException: If validation fails due to server error
@@ -181,11 +207,31 @@ async def validate_ph_core_fhir_resource(
         
         processing_time = int((time.time() - start_time) * 1000)
         
-        return ValidationResponse(
+        response_data = ValidationResponse(
             validation_result=validation_result,
             processed_at=datetime.now().isoformat(),
             processing_time_ms=processing_time
         )
+        
+        # Return appropriate HTTP status code based on validation result
+        if not validation_result.valid:
+            # Validation failed - return 400 Bad Request
+            return JSONResponse(
+                status_code=400,
+                content=response_data.model_dump()
+            )
+        elif validation_result.status == ValidationStatus.WARNING:
+            # Validation passed with warnings - return 422 Unprocessable Entity
+            return JSONResponse(
+                status_code=422,
+                content=response_data.model_dump()
+            )
+        else:
+            # Validation successful - return 200 OK
+            return JSONResponse(
+                status_code=200,
+                content=response_data.model_dump()
+            )
         
     except Exception as e:
         logger.error(f"Error validating PH-Core resource: {e}")
@@ -197,7 +243,6 @@ async def validate_ph_core_fhir_resource(
 
 @router.post(
     "/validate/batch",
-    response_model=List[ValidationResponse],
     summary="Validate Multiple FHIR Resources (Standard FHIR Only)",
     description="Validate multiple FHIR resources against FHIR R4 specification only (no PH-Core requirements)",
     tags=["Standard FHIR Validation"]
@@ -236,14 +281,18 @@ async def validate_batch_resources(
             }
         }
     )
-) -> List[ValidationResponse]:
+):
     """Validate multiple FHIR resources.
     
     Args:
         resources: List of validation requests
         
     Returns:
-        List of validation responses
+        List of validation responses with appropriate HTTP status code:
+        - 200 OK: All resources validated successfully
+        - 207 Multi-Status: Mixed validation results (some passed, some failed)
+        - 400 Bad Request: Invalid batch request (e.g., too many resources)
+        - 500 Internal Server Error: Server error during validation
         
     Raises:
         HTTPException: If batch validation fails
@@ -255,6 +304,9 @@ async def validate_batch_resources(
         )
     
     results = []
+    successful_count = 0
+    failed_count = 0
+    warning_count = 0
     
     for i, request in enumerate(resources):
         try:
@@ -271,11 +323,21 @@ async def validate_batch_resources(
             
             processing_time = int((time.time() - start_time) * 1000)
             
-            results.append(ValidationResponse(
+            response = ValidationResponse(
                 validation_result=validation_result,
                 processed_at=datetime.now().isoformat(),
                 processing_time_ms=processing_time
-            ))
+            )
+            results.append(response)
+            
+            # Track results for overall status
+            if validation_result.valid:
+                if validation_result.status == ValidationStatus.WARNING:
+                    warning_count += 1
+                else:
+                    successful_count += 1
+            else:
+                failed_count += 1
             
         except Exception as e:
             logger.error(f"Error validating resource {i}: {e}")
@@ -291,8 +353,23 @@ async def validate_batch_resources(
                 processed_at=datetime.now().isoformat(),
                 processing_time_ms=0
             ))
+            failed_count += 1
     
-    return results
+    # Determine overall HTTP status code for batch
+    if failed_count == 0 and warning_count == 0:
+        # All resources validated successfully
+        status_code = 200
+    elif failed_count == len(resources):
+        # All resources failed validation
+        status_code = 400
+    else:
+        # Mixed results - use 207 Multi-Status
+        status_code = 207
+    
+    return JSONResponse(
+        status_code=status_code,
+        content=[result.model_dump() for result in results]
+    )
 
 
 @router.get(
