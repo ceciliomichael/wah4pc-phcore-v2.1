@@ -35,6 +35,7 @@
                 <div class="flex border-b border-gray-200">
                     <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none" onclick="showExample('health-check', 'python')">Python</button>
                     <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('health-check', 'nodejs')">Node.js</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('health-check', 'postman')">Postman</button>
                     <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none" onclick="showExample('health-check', 'curl')">cURL</button>
                 </div>
 
@@ -84,24 +85,24 @@ const url = "https://wah4pc-validation.echosphere.cfd/api/v1/health";
 async function checkHealth() {
     try {
         const response = await fetch(url);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const healthStatus = await response.json();
-        
+
         console.log("Server Health Check:");
         console.log(`  Status: ${healthStatus.status}`);
         console.log(`  Version: ${healthStatus.version}`);
         console.log(`  Timestamp: ${healthStatus.timestamp}`);
         console.log(`  Uptime: ${healthStatus.uptime_seconds} seconds`);
-        
+
         // Convert uptime to human readable format
         const uptimeMinutes = Math.floor(healthStatus.uptime_seconds / 60);
         const uptimeHours = Math.floor(uptimeMinutes / 60);
         const uptimeDays = Math.floor(uptimeHours / 24);
-        
+
         if (uptimeDays > 0) {
             console.log(`  Uptime (readable): ${uptimeDays} days, ${uptimeHours % 24} hours, ${uptimeMinutes % 60} minutes`);
         } else if (uptimeHours > 0) {
@@ -109,13 +110,25 @@ async function checkHealth() {
         } else {
             console.log(`  Uptime (readable): ${uptimeMinutes} minutes`);
         }
-        
+
     } catch (error) {
         console.error("Error:", error);
     }
 }
 
 checkHealth();</code></pre>
+                    </div>
+                </div>
+
+                <!-- Postman Example -->
+                <div id="health-check-postman" class="example-content hidden">
+                    <div class="bg-gray-50 rounded-b-lg p-4 space-y-4">
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-700 mb-2">Request URL</h4>
+                            <div class="bg-gray-900 text-gray-100 rounded p-3 overflow-x-auto">
+                                <pre><code class="text-sm">GET https://wah4pc-validation.echosphere.cfd/api/v1/health</code></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -235,7 +248,8 @@ checkHealth();</code></pre>
                 const activeTab = [...tabs].find(tab => tab.textContent.trim() === language || 
                                                 (language === 'python' && tab.textContent.trim() === 'Python') ||
                                                 (language === 'nodejs' && tab.textContent.trim() === 'Node.js') ||
-                                                (language === 'curl' && tab.textContent.trim() === 'cURL'));
+                                                (language === 'curl' && tab.textContent.trim() === 'cURL') ||
+                                                (language === 'postman' && tab.textContent.trim() === 'Postman'));
                 if (activeTab) {
                     activeTab.classList.remove('text-gray-500', 'hover:text-gray-700');
                     activeTab.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
